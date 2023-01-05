@@ -15,8 +15,7 @@ import { RouterLink, RouterView } from 'vue-router'
         </div>
         <div class="col-3 mx-auto">
           <a class="mx-4 header-link" data-bs-toggle="modal" data-bs-target="#registerModal"><font-awesome-icon icon="fa-solid fa-user-plus"/> Registreeri</a>
-          <a class="mx-4 header-link" data-bs-toggle="modal" data-bs-target="#loginModal"><font-awesome-icon
-              icon="fa-solid fa-right-to-bracket" /> Logi sisse</a>
+          <a class="mx-4 header-link" data-bs-toggle="modal" data-bs-target="#loginModal"><font-awesome-icon icon="fa-solid fa-right-to-bracket" /> Logi sisse</a>
         </div>
       </header>
     </div>
@@ -26,7 +25,7 @@ import { RouterLink, RouterView } from 'vue-router'
   </div>
 
 <!-- Login modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="loginModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -51,7 +50,7 @@ import { RouterLink, RouterView } from 'vue-router'
   </div>
 
 <!-- Register modal -->
-  <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="registerModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -100,4 +99,9 @@ box-shadow: none !important;}
   color: #000000;
   font-weight: 600;
 }
+
+a {
+  cursor: pointer;
+}
+
 </style>

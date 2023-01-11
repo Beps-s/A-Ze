@@ -25,83 +25,76 @@ import { RouterLink, RouterView } from 'vue-router'
   </div>
 
 <!-- Login modal -->
-<div class="modal fade" id="loginModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal" data-bs-backdrop="static" id="loginModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Sisesta oma kasutajaandmed</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="md-form mb-3">
-            <label data-success="right">E-mail</label>
-            <input type="email" class="form-control" style=" background-color: #BEBEBE;">
+        <div class="wrapper">
+          <div class="d-grid d-md-flex justify-content-md-end">
+            <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="md-form mb-3">
-            <label data-success="right">Parool</label>
-            <input type="password" class="form-control" style=" background-color: #BEBEBE;">
+          <div class="title-text">
+            <div class="title login">Login</div>
           </div>
-        </div>
-        <div class="modal-footer justify-content-center" style=" background-color: #F4F3EF;">
-          <button type="button" class="btn btn-primary">Logi sisse</button>
+          <div class="form-container">
+            <div class="form-inner">
+              <form action="#" class="login">
+                <div class="field">
+                  <input type="text" placeholder="E-maili Aadress" required>
+                </div>
+                <div class="field">
+                  <input type="password" placeholder="Parool" required>
+                </div>
+                <div class="field btn">
+                  <div class="btn-layer"></div>
+                  <input type="submit" value="Logi sisse">
+                </div>
+                <div class="signup-link">
+                  Pole kasutajat? <a href="">Registreeri siin</a>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-<!-- Register modal -->
-  <div class="modal fade" id="registerModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- Register modal -->
+  <div class="modal" data-bs-backdrop="static" id="registerModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Sisesta oma kasutajaandmed</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="email" class="col-form-label">E-mail</label>
-              <input type="email" class="form-control" id="email" style=" background-color: #BEBEBE;">
+        <div class="wrapper">
+          <div class="d-grid d-md-flex justify-content-md-end">
+            <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="title-text">
+            <div class="title register">Registreeri</div>
+          </div>
+          <div class="form-container">
+            <div class="form-inner">
+              <form action="#" class="login">
+                <div class="field">
+                  <input type="text" placeholder="E-maili Aadress" required>
+                </div>
+                <div class="field">
+                  <input type="password" placeholder="Parool" required>
+                </div>
+                <div class="field">
+                  <input type="password" placeholder="Parool uuesti" required>
+                </div>
+                <div class="field btn">
+                  <div class="btn-layer"></div>
+                  <input type="submit" value="Loo konto">
+                </div>
+                <div class="signup-link">
+                  Kasutaja juba olemas? <a href="">Logi sisse</a>
+                </div>
+              </form>
             </div>
-            <div class="mb-3">
-              <label for="password" class="col-form-label">Parool</label>
-              <input type="password" class="form-control" id="password" style=" background-color: #BEBEBE;">
-            </div>
-            <div class="mb-3">
-              <label for="password-again" class="col-form-label">Parool uuesti</label>
-              <input type="password" class="form-control" id="password-again" style=" background-color: #BEBEBE;">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer justify-content-center" style="background-color: #f4f3ef">
-          <button type="button" class="btn btn-primary">Registreeri</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
 </template>
-
-<style>
-* {
-  background-color: #f4f3ef;
-}
-
-.form-control {
-box-shadow: none !important;}
-
-.btn-primary {
-  background: #6F4AF0 !important;
-}
-
-.header-link {
-  text-decoration: none;
-  color: #000000;
-  font-weight: 600;
-}
-
-a {
-  cursor: pointer;
-}
-
-</style>

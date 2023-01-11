@@ -4,7 +4,7 @@ import express from "express";
 // import function from controller
 import { showHotels, showHotelByName, createHotel, deleteHotel } from "../controllers/hotel.js";
 import { createRoom } from "../controllers/room.js";
-import { createUser, loginUser } from "../controllers/user.js";
+import { createUser, loginUser, logoutUser } from "../controllers/user.js";
  
 // init express router
 const router = express.Router();
@@ -31,9 +31,11 @@ router.post('/rooms', createRoom);
 // Add user
 router.post('/users', createUser);
 
-// poolik login
+// Login
 router.post('/sessions', loginUser);
 
+// Log out
+router.delete('/sessions', logoutUser)
  
 // export default router
 export default router;

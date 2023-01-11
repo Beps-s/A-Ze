@@ -39,7 +39,7 @@ import { RouterLink, RouterView } from 'vue-router'
             <div class="form-inner">
               <form action="#" class="login">
                 <div class="field">
-                  <input type="text" placeholder="E-maili Aadress" required>
+                  <input type="email" placeholder="E-maili Aadress" required>
                 </div>
                 <div class="field">
                   <input type="password" placeholder="Parool" required>
@@ -74,7 +74,16 @@ import { RouterLink, RouterView } from 'vue-router'
             <div class="form-inner">
               <form action="#" class="login">
                 <div class="field">
-                  <input type="text" placeholder="E-maili Aadress" required>
+                  <input type="text" placeholder="Eesnimi" required>
+                </div>
+                <div class="field">
+                  <input type="text" placeholder="Perenimi" required>
+                </div>
+                <div class="field">
+                  <input type="email" placeholder="E-maili Aadress" required>
+                </div>
+                <div class="field">
+                  <input type="text" placeholder="Telefoni number" required>
                 </div>
                 <div class="field">
                   <input type="password" placeholder="Parool" required>

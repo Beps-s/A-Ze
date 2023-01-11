@@ -32,10 +32,3 @@
         </form>
     </div>
 </template>
-
-<style>
-
-.form-control.add-hotel-input {
-background-color: #BEBEBE !important;}
-
-</style>

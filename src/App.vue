@@ -1,7 +1,77 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 </script>
-
+<script>
+export default{
+  data(){
+    return {
+      emailLogin: '',
+      paroolLogin: '',
+      eesnimiReg: '',
+      perenimiReg: '',
+      paroolReg: '',
+      emailReg: '',
+      telefonReg: '',
+      paroolUuestiReg: '',
+      message: ''
+    }
+  },
+  methods: {
+    register: async function(e){
+      e.preventDefault()
+      if(this.paroolReg != this.paroolUuestiReg){
+        this.message = 'Paroolid ei kattu'
+      }else if(this.parool == this.paroolUuesti){
+        const registerRequest = {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                  Tuup: 'Klient',
+                  Nimi: this.eesnimiReg + this.perenimiReg,
+                  Email: this.emailReg,
+                  Telefon: this.telefonReg,
+                  parool: this.paroolReg
+              }) 
+            }
+        await fetch('http://192.168.16.94:5000/users', registerRequest)
+          .then(response => response.json())
+          .then(data => {
+            if(data.Error){
+              this.message = data.Error
+            }else {
+              this.message = 'Konto edukalt loodud'
+            }
+          })
+      }
+    },
+    login: async function(e){
+      e.preventDefault()
+      const loginRequest = {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                  Email: this.emailLogin,
+                  parool: this.paroolLogin
+              }) 
+            }
+      await fetch('http://192.168.16.94:5000/sessions', loginRequest)
+        .then(response => response.json())
+        .then(data => {
+          if(data.error){
+            this.message = data.error
+          }else{
+            this.message = "Edukalt sisse logitud"
+            localStorage.setItem('SessionID', data.sessionID)
+          }
+        })
+    }
+  }
+}
+</script>
 <template>
   <!-- Header -->
   <div id="wholepage">
@@ -37,19 +107,20 @@ import { RouterLink, RouterView } from 'vue-router'
           </div>
           <div class="form-container">
             <div class="form-inner">
-              <form action="#" class="login">
+              <form action="#" @submit="login" class="login">
                 <div class="field">
-                  <input type="email" placeholder="E-maili Aadress" required>
+                  <input type="email" v-model="emailLogin" placeholder="E-maili Aadress" required>
                 </div>
                 <div class="field">
-                  <input type="password" placeholder="Parool" required>
+                  <input type="password" v-model="paroolLogin" placeholder="Parool" required>
                 </div>
+                <h3>{{ message }}</h3>
                 <div class="field btn">
                   <div class="btn-layer"></div>
                   <input type="submit" value="Logi sisse">
                 </div>
                 <div class="signup-link">
-                  Pole kasutajat? <a href="">Registreeri siin</a>
+                  Pole kasutajat? <a data-bs-toggle="modal" data-bs-target="#registerModal">Registreeri siin</a>
                 </div>
               </form>
             </div>
@@ -72,31 +143,32 @@ import { RouterLink, RouterView } from 'vue-router'
           </div>
           <div class="form-container">
             <div class="form-inner">
-              <form action="#" class="login">
+              <form action="#" @submit="register" class="login">
                 <div class="field">
-                  <input type="text" placeholder="Eesnimi" required>
+                  <input type="text" v-model="eesnimi" placeholder="Eesnimi" id="register-eesnimi" required>
                 </div>
                 <div class="field">
-                  <input type="text" placeholder="Perenimi" required>
+                  <input type="text" v-model="perenimi" placeholder="Perenimi" id="register-perenimi" required>
                 </div>
                 <div class="field">
-                  <input type="email" placeholder="E-maili Aadress" required>
+                  <input type="email" v-model="email" placeholder="E-maili Aadress" id="register-email" required>
                 </div>
                 <div class="field">
-                  <input type="text" placeholder="Telefoni number" required>
+                  <input type="text" v-model="telefon" placeholder="Telefoni number" id="register-telefon" required>
                 </div>
                 <div class="field">
-                  <input type="password" placeholder="Parool" required>
+                  <input type="password" v-model="parool" placeholder="Parool" id="register-parool" required>
                 </div>
                 <div class="field">
-                  <input type="password" placeholder="Parool uuesti" required>
+                  <input type="password" v-model="paroolUuesti" placeholder="Parool uuesti" id="register-parool-kordus" required>
                 </div>
+                <h3>{{ message }}</h3>
                 <div class="field btn">
                   <div class="btn-layer"></div>
                   <input type="submit" value="Loo konto">
                 </div>
                 <div class="signup-link">
-                  Kasutaja juba olemas? <a href="">Logi sisse</a>
+                  Kasutaja juba olemas? <a data-bs-toggle="modal" data-bs-target="#loginModal">Logi sisse</a>
                 </div>
               </form>
             </div>

@@ -5,7 +5,7 @@ export const insertUser = (data,result) => {
         if(err) {
             console.log(err);
             result(err, null);
-        } else if(results == null){
+        } else if(results[0] == null){
             db.query("INSERT INTO kasutaja SET ?", [data], (err, results) => {
                 if(err) {
                     console.log(err);
@@ -15,7 +15,7 @@ export const insertUser = (data,result) => {
                 }
             })
         } else {
-            result({Error: 'account already exists'})
+            result({Error: 'Selle e-mailiga konto juba eksisteerib'})
         }
     })
 

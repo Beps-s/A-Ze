@@ -22,7 +22,9 @@ export const loginUser = (req, res) => {
             if (data.parool == results[0].parool && data.Email == results[0].Email){
                 let sessionID = Math.round(Math.random() * 100000000)
                 sessions.push({user: data.Email, sessionID: sessionID})
-                res.json(sessionID);
+                res.json({sessionID: sessionID});
+            } else {
+                res.json({ error: "Vale e-mail või parool"})
             }
         }
     });
@@ -32,8 +34,8 @@ export const logoutUser = (req, res) => {
     const data = req.body
     sessions.forEach((element) => {
         if (
-          element.user == req.body.username ||
-          element.id == req.body.sessionId
+          element.user == data.Email ||
+          element.id == data.sessionId
         ) {
           sessions.splice(element);
           return res.status(201).send({ success: true });

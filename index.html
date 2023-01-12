@@ -1,29 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/src/css/LogReg.css">
-    <link rel="icon" href="/src/assets/icon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-    </style>
-    <title>A-Ze</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnaBkyqvzbw56P2lyLsIk8RvGfQERCcB0&callback=initAutocomplete&libraries=places&v=weekly" defer></script>
-    <script>
-      var loadFile = function(event) {
-          var image = document.getElementById('output');
-          image.src=URL.createObjectURL(event.target.files[0]);
-          image.style.border = "1px solid #858282";
-          image.style.borderRadius = "5px";
-      };
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/css/LogReg.css">
+  <link rel="icon" href="/src/assets/icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+  </style>
+  <title>A-Ze</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.js"></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnaBkyqvzbw56P2lyLsIk8RvGfQERCcB0&callback=initAutocomplete&libraries=places&v=weekly"
+    defer></script>
+  <script>
+    var loadFile = function (event) {
+      var image = document.getElementById('output');
+      image.src = URL.createObjectURL(event.target.files[0]);
+      image.style.border = "1px solid #858282";
+      image.style.borderRadius = "5px";
+    };
   </script>
-  </body>
+  <script>
+    document.querySelector("html").classList.add('js');
+
+    var fileInput = document.querySelector(".input-file"),
+      button = document.querySelector(".input-file-trigger"),
+      the_return = document.querySelector(".file-return");
+
+    button.addEventListener("keydown", function (event) {
+      if (event.keyCode == 13 || event.keyCode == 32) {
+        fileInput.focus();
+      }
+    });
+    button.addEventListener("click", function (event) {
+      fileInput.focus();
+      return false;
+    });
+    fileInput.addEventListener("change", function (event) {
+      the_return.innerHTML = this.value;
+    }); 
+  </script>
+</body>
+
 </html>

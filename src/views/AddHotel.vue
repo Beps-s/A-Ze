@@ -1,5 +1,5 @@
 <template>
-    <div class="container mt-4">
+    <div class="container mt-3" style="margin-left:100px">
         <div class="card border-2" style="width: 68.2rem; height: 38rem; border-width: 1px; border-color: #858282;">
             <div class="text-center pt-4">
                 <h1><strong>Lisa oma majutus siia, et see oleks kõigile kättesaadav</strong></h1>

@@ -1,16 +1,16 @@
 <script>
-    export default {
-        props: [
-            "nimi",
-            "pilt",
-            "hind"
-        ]
-    }
+export default {
+    props: [
+        "nimi",
+        "pilt",
+        "hind"
+    ]
+}
 </script>
 
 
 <template>
-    <div class="col">
+    <div class="col" style="padding-top: 12px; padding-bottom: 12px;">
         <div class="card h-100">
             <a class="card-link" href="/hotel">
                 <img src="{{ image }}" class="card-img-top">
@@ -22,3 +22,23 @@
         </div>
     </div>
 </template>
+
+<style>
+.home-card {
+    background-color: #f4f3ef !important;
+    border: none !important;
+}
+
+a:link {
+    text-decoration: none;
+    color: #000000;
+}
+
+.card-link:visited {
+    color: gray;
+}
+
+a:hover {
+    color: #6f4af0 !important;
+}
+</style>

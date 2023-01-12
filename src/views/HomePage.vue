@@ -28,7 +28,7 @@ export default {
 
 
 <template>
-    <div class="row row-cols-4">
+    <div class="row row-cols-4 my-5">
         <svg v-if="!hotels.length" class="spinner" viewBox="0 0 50 50">
             <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
         </svg>
@@ -37,3 +37,23 @@ export default {
         </div>
     </div>
 </template>
+
+<style>
+* {
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+    background-color: #f4f3ef !important;
+}
+
+.btn-primary {
+    background: #6f4af0 !important;
+}
+
+.header-link {
+    text-decoration: none;
+    color: #000000;
+    font-weight: 600;
+}
+</style>

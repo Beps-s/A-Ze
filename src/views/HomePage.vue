@@ -1,5 +1,5 @@
 <script>
-    import "../css/custom.css"
+    import "../css/style.css"
     import Hotel from "../components/HomePage-Hotels.vue"   
 
     export default {

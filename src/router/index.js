@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Home from '../views/Home.vue'
+import Home from '../views/HomePage.vue'
 import AddHotel from '../views/AddHotel.vue'
 
 const router = createRouter({

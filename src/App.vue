@@ -1,4 +1,5 @@
 <script setup>
+import { nextTick } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 </script>
 <script>
@@ -13,7 +14,8 @@ export default{
       emailReg: '',
       telefonReg: '',
       paroolUuestiReg: '',
-      message: ''
+      message: '',
+      sessionID: localStorage.getItem('SessionID')
     }
   },
   methods: {
@@ -84,8 +86,10 @@ export default{
           <input class="form-control" placeholder="Otsi majutust">
         </div>
         <div class="col-3 mx-auto">
-          <a class="mx-4 header-link" data-bs-toggle="modal" data-bs-target="#registerModal"><font-awesome-icon icon="fa-solid fa-user-plus"/> Registreeri</a>
-          <a class="mx-4 header-link" data-bs-toggle="modal" data-bs-target="#loginModal"><font-awesome-icon icon="fa-solid fa-right-to-bracket" /> Logi sisse</a>
+          <a v-if="!sessionID" class="mx-4 header-link" data-bs-toggle="modal" data-bs-target="#registerModal"><font-awesome-icon icon="fa-solid fa-user-plus"/> Registreeri</a>
+          <RouterLink to="/addHotel" v-else="sessionID"><a class="mx-4 header-link"><font-awesome-icon icon="fa-solid fa-plus"/> Lisa majutus</a></RouterLink>
+          <a v-if="!sessionID" class="mx-4 header-link" data-bs-toggle="modal" data-bs-target="#loginModal"><font-awesome-icon icon="fa-solid fa-right-to-bracket" /> Logi sisse</a>
+          <a v-else="sessionID" class="mx-4 header-link"><font-awesome-icon icon="fa-solid fa-user"/> Minu konto</a>
         </div>
       </header>
     </div>
@@ -117,7 +121,7 @@ export default{
                 <h3>{{ message }}</h3>
                 <div class="field btn">
                   <div class="btn-layer"></div>
-                  <input type="submit" value="Logi sisse">
+                  <input type="submit" value="Logi sisse" data-bs-dismiss="modal">
                 </div>
                 <div class="signup-link">
                   Pole kasutajat? <a data-bs-toggle="modal" data-bs-target="#registerModal">Registreeri siin</a>
@@ -145,27 +149,27 @@ export default{
             <div class="form-inner">
               <form action="#" @submit="register" class="login">
                 <div class="field">
-                  <input type="text" v-model="eesnimi" placeholder="Eesnimi" id="register-eesnimi" required>
+                  <input type="text" v-model="eesnimiReg" placeholder="Eesnimi" id="register-eesnimi" required>
                 </div>
                 <div class="field">
-                  <input type="text" v-model="perenimi" placeholder="Perenimi" id="register-perenimi" required>
+                  <input type="text" v-model="perenimiReg" placeholder="Perenimi" id="register-perenimi" required>
                 </div>
                 <div class="field">
-                  <input type="email" v-model="email" placeholder="E-maili Aadress" id="register-email" required>
+                  <input type="email" v-model="emailReg" placeholder="E-maili Aadress" id="register-email" required>
                 </div>
                 <div class="field">
-                  <input type="text" v-model="telefon" placeholder="Telefoni number" id="register-telefon" required>
+                  <input type="text" v-model="telefonReg" placeholder="Telefoni number" id="register-telefon" required>
                 </div>
                 <div class="field">
-                  <input type="password" v-model="parool" placeholder="Parool" id="register-parool" required>
+                  <input type="password" v-model="paroolReg" placeholder="Parool" id="register-parool" required>
                 </div>
                 <div class="field">
-                  <input type="password" v-model="paroolUuesti" placeholder="Parool uuesti" id="register-parool-kordus" required>
+                  <input type="password" v-model="paroolUuestiReg" placeholder="Parool uuesti" id="register-parool-kordus" required>
                 </div>
                 <h3>{{ message }}</h3>
                 <div class="field btn">
                   <div class="btn-layer"></div>
-                  <input type="submit" value="Loo konto">
+                  <input type="submit" value="Loo konto" data-bs-dismiss="modal">
                 </div>
                 <div class="signup-link">
                   Kasutaja juba olemas? <a data-bs-toggle="modal" data-bs-target="#loginModal">Logi sisse</a>

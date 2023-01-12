@@ -1,9 +1,8 @@
-import { query } from "express";
 import db from "../config/db.js";
  
 // Get All Hotels
 export const getHotels = (result) => {
-    db.query("SELECT h.*, t.Hind FROM hotell h inner join tuba t on h.Hotelli_ID=t.Hotelli_ID;", (err, results) => {             
+    db.query("SELECT h.*, t.Hind FROM hotell h inner join tuba t on h.Hotelli_ID=t.Hotelli_ID WHERE t.hind = (SELECT min(hind) FROM tuba WHERE Hotelli_ID = t.Hotelli_ID);", (err, results) => {             
         if(err) {
             console.log(err);
             result(err, null);
@@ -25,7 +24,7 @@ export const getHotelByName = (name, result) => {
     });   
 }
  
-// EI TÖÖTA VIST :D
+// Add hotel
 export const insertHotel = (data, result) => {
     db.query("INSERT INTO hotell SET ?", [data], (err, results) => {      
         if(err) {
@@ -36,7 +35,9 @@ export const insertHotel = (data, result) => {
         }
     });   
 }
- 
+
+
+
 /* Update Product to Database
 export const updateProductById = (data, id, result) => {
     db.query("UPDATE product SET product_name = ?, product_price = ? WHERE product_id = ?", [data.product_name, data.product_price, id], (err, results) => {             

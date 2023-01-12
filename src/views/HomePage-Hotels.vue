@@ -1,6 +1,6 @@
 <template>
     <div class="col">
-        <div class="card h-100">
+        <div class="card-homePage h-100">
             <a class="card-link" href="/hotel">
                 <img src="{{Image}}" class="card-img-top">
                 <div class="card-body text-center">

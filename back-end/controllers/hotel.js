@@ -24,9 +24,8 @@ export const showHotelByName = (req, res) => {
     });
 }
  
-// EI TÖÖTA VIST :D
+
 export const createHotel = (req, res) => {
-    console.log(req)
     const data = req.body;
     insertHotel(data, (err, results) => {
         if (err){
@@ -36,6 +35,7 @@ export const createHotel = (req, res) => {
         }
     });
 }
+
  
 /* Update Product
 export const updateProduct = (req, res) => {
@@ -61,3 +61,6 @@ export const deleteHotel = (req, res) => {
         }
     });
 }
+
+
+

@@ -1,5 +1,4 @@
 import { getHotels, getHotelByName, insertHotel, deleteHotelById, getHotelById } from "../models/hotelModel.js";
-import { getUserId } from "../models/userModel.js";
 import { sessions } from "./user.js";
  
 
@@ -28,6 +27,7 @@ export const showHotelByName = (req, res) => {
     let name = req.params.name
     name = name.slice(1)
     name = '%' + name + '%'
+    
     getHotelByName(name, (err, results) => {
         if (err){
             res.send(err);
@@ -48,6 +48,7 @@ export const createHotel = (req, res) => {
             return
         }  
     })
+    
     insertHotel(data, (err, results) => {
         if (err){
             res.send(err);

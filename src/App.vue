@@ -122,7 +122,7 @@ export default {
               icon="fa-solid fa-right-to-bracket" /> Logi sisse</a>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li><a class="dropdown-item" href="#">Minu andmed</a></li>
-            <li><a class="dropdown-item" href="#">Minu broneeringud</a></li>
+            <RouterLink to="/myBookings"><li><a class="dropdown-item" href="#">Minu broneeringud</a></li></RouterLink>
             <li>
               <hr class="dropdown-divider">
             </li>

@@ -53,7 +53,7 @@
                 </form>
             </div>
             <div class="card-footer text-center align-bottom" style="background-color: #fff">
-                <button type="submit" form="addForm" class="sub-button btn btn-primary"><strong>Lisa oma hotell</strong></button>
+                <button type="submit" form="addForm" class="btn btn-outline-primary"><strong>Lisa oma hotell</strong></button>
             </div>
         </div>
     </div>

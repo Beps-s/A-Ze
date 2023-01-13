@@ -66,7 +66,6 @@ export default{
           if(data.error){
             this.message = data.error
           }else{
-            this.message = "Edukalt sisse logitud"
             localStorage.setItem('SessionID', data.sessionID)
           }
         })

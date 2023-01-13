@@ -1,5 +1,7 @@
 <script>
+import VueMultiselect from 'vue-multiselect';
 export default {
+    components: { VueMultiselect },
     data() {
         return {
             nimiHotell: '',
@@ -8,7 +10,9 @@ export default {
             muuHotell: '',
             aadressHotell: '',
             piltHotell: '',
-            sessionID: localStorage.getItem('SessionID')
+            sessionID: localStorage.getItem('SessionID'),
+            selected: null,
+            options: ['WC', 'Dušš', 'Hommikusöök']
         }
     },
     methods: {
@@ -63,6 +67,11 @@ export default {
                                 <span class="label">Hotelli Kirjeldus</span>
                                 <span class="focus-bg"></span>
                             </label>
+                            <div>
+                                <VueMultiselect v-model="selected" :options="options" :multiple="true"
+                                    :close-on-select="true" placeholder="Hotellis pakutavad teenused">
+                                </VueMultiselect>
+                            </div>
                         </div>
                         <div class="py-2">
                             <label for="aadressHotell" class="inp">

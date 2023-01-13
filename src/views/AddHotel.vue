@@ -1,6 +1,8 @@
 <script>
-export default{
-    data(){
+import VueMultiselect from 'vue-multiselect';
+export default {
+    components: { VueMultiselect },
+    data() {
         return {
             nimiHotell: '',
             teenusedHotell: '',
@@ -8,102 +10,117 @@ export default{
             muuHotell: '',
             aadressHotell: '',
             piltHotell: '',
-            sessionID: localStorage.getItem('SessionID')
+            sessionID: localStorage.getItem('SessionID'),
+            selected: null,
+            options: ['WC', 'Dušš', 'Hommikusöök']
         }
     },
     methods: {
-        onSelect(){
-                const file = this.$refs.file.files[0]
-                this.piltHotell = file
+        onSelect() {
+            const file = this.$refs.file.files[0]
+            this.piltHotell = file
         },
-        insertHotel: async function(e){
+        insertHotel: async function (e) {
             const insertHotelRequest = {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                  Nimi: this.nimiHotell,
-                  Tarnid: this.tarnidHotell,
-                  Kirjeldus: this.kirjeldusHotell,
-                  Aadress: this.aadressHotell,
-                  Hotelli_teenused: this.teenusedHotell,
-                  Muud_teenused: this.muuHotell,
-                  Pilt: this.piltHotell,
-                  Omanik: this.sessionID
-              }) 
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    Nimi: this.nimiHotell,
+                    Tarnid: this.tarnidHotell,
+                    Kirjeldus: this.kirjeldusHotell,
+                    Aadress: this.aadressHotell,
+                    Hotelli_teenused: this.teenusedHotell,
+                    Muud_teenused: this.muuHotell,
+                    Pilt: this.piltHotell,
+                    Omanik: this.sessionID
+                })
             }
             await fetch('http://192.168.16.94:5000/hotels', insertHotelRequest)
                 .then(response => response.json())
-                .then(data => {(console.log(data))})            
+                .then(data => { (console.log(data)) })
         }
     }
 }
 </script>
 <template>
-    <div class="container mt-3" style="margin-left:100px">
-        <div class="card border-2" style="width: 68.2rem; height: 39rem; border-width: 1px; border-color: #858282;">
+    <div class="d-flex justify-content-center mt-3">
+        <div class="card addhotel-card border-2" style="">
             <div class="text-center pt-4">
                 <h1><strong>Lisa oma majutus siia, et see oleks kõigile kättesaadav</strong></h1>
             </div>
             <div class="card-body">
                 <form id="addForm" class="row g-4">
                     <div class="col-md-6">
-                        <label for="nimiHotell" class="inp">
-                            <input type="text" id="nimiHotell" v-model="nimiHotell" placeholder="&nbsp;" required>
-                            <span class="label">Hotelli nimi</span>
-                            <span class="focus-bg"></span>
-                        </label>
+                        <div class="py-2">
+                            <label for="nimiHotell" class="inp">
+                                <input type="text" id="nimiHotell" v-model="nimiHotell" placeholder="&nbsp;" required>
+                                <span class="label">Hotelli nimi</span>
+                                <span class="focus-bg"></span>
+                            </label>
+                        </div>
+                        <div class="py-2">
+                            <label for="kirjeldusHotell" class="inp">
+                                <input type="text" id="kirjeldusHotell" v-model="kirjeldusHotell" placeholder="&nbsp;"
+                                    required>
+                                <span class="label">Hotelli Kirjeldus</span>
+                                <span class="focus-bg"></span>
+                            </label>
+                            <div>
+                                <VueMultiselect v-model="selected" :options="options" :multiple="true"
+                                    :close-on-select="true" placeholder="Hotellis pakutavad teenused">
+                                </VueMultiselect>
+                            </div>
+                        </div>
+                        <div class="py-2">
+                            <label for="aadressHotell" class="inp">
+                                <input name="aadressHotell" id="aadressHotell" v-model="aadressHotell" required
+                                    autocomplete="off" placeholder="&nbsp;">
+                                <span class="label">Aadress</span>
+                                <span class="focus-bg"></span>
+                            </label>
+                        </div>
+                        <div class="py-2">
+                            <label for="tarnidHotell" class="inp">
+                                <input name="tarnidHotell" id="tarnidHotell" v-model="tarnidHotell" required
+                                    autocomplete="off" placeholder="&nbsp;">
+                                <span class="label">Tärnid</span>
+                                <span class="focus-bg"></span>
+                            </label>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="teenusedHotell" class="inp">
-                            <input type="text" id="teenusedHotell" v-model="teenusedHotell" placeholder="&nbsp;" required>
-                            <span class="label">Hotellis pakutavad teenused</span>
-                            <span class="focus-bg"></span>
-                        </label>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="kirjeldusHotell" class="inp">
-                            <input type="text" id="kirjeldusHotell" v-model="kirjeldusHotell" placeholder="&nbsp;" required>
-                            <span class="label">Hotelli Kirjeldus</span>
-                            <span class="focus-bg"></span>
-                        </label>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="muuHotell" class="inp">
-                            <input type="text" id="muuHotell" v-model="muuHotell" placeholder="&nbsp;">
-                            <span class="label">Muud teenused</span>
-                            <span class="focus-bg"></span>
-                        </label>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="aadressHotell" class="inp">
-                            <input name="aadressHotell" id="aadressHotell" v-model="aadressHotell" required autocomplete="off"
-                                placeholder="&nbsp;">
-                            <span class="label">Aadress</span>
-                            <span class="focus-bg"></span>
-                        </label>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="aadressHotell" class="inp">
-                            <input name="tarnidHotell" id="tarnidHotell" v-model="tarnidHotell" require autocomplete="off" placeholder="&nbsp;">
-                            <span class="label">Tärnid</span>
-                            <span class="focus-bg"></span>
-                        </label>
-                    </div>
-                    <div class="col-md-6 input-file-container mr-2">
-                        <input type="file" accept="image/png, image/jpeg" @change="onSelect" ref="file" class="input-file" id="piltHotell"
-                            onchange="loadFile(event)">
-                        <label tabindex="0" for="piltHotell" class="input-file-trigger">Lae ülesse pilt
-                            hotellist</label>
-                        <div class="col-md-10 justify-content-center text-center">
-                            <p class="pt-4"><img class="image250" id="output" /></p>
+                        <div class="py-2">
+                            <label for="teenusedHotell" class="inp">
+                                <input type="text" id="teenusedHotell" v-model="teenusedHotell" placeholder="&nbsp;"
+                                    required>
+                                <span class="label">Hotellis pakutavad teenused</span>
+                                <span class="focus-bg"></span>
+                            </label>
+                        </div>
+                        <div class="py-2">
+                            <label for="muuHotell" class="inp">
+                                <input type="text" id="muuHotell" v-model="muuHotell" placeholder="&nbsp;" required>
+                                <span class="label">Muud teenused</span>
+                                <span class="focus-bg"></span>
+                            </label>
+                        </div>
+                        <div class="pt-2">
+                            <input type="file" accept="image/png, image/jpeg" @change="onSelect" ref="file"
+                                class="input-file" id="piltHotell" onchange="loadFile(event)">
+                            <label tabindex="0" for="piltHotell" class="input-file-trigger">Lae ülesse pilt
+                                hotellist</label>
+                        </div>
+                        <div class="pt-4 justify-content-center text-center">
+                            <img class="image250" id="output" />
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="card-footer text-center align-bottom" style="background-color: #fff">
-                <button @click="insertHotel" id="book-btn" class="sub-button btn btn-primary"><strong>Lisa oma
+            <div class="card-footer text-center align-bottom">
+                <button @click="insertHotel" id="book-btn" type="submit" form="addForm"
+                    class="sub-button btn"><strong>Lisa oma
                         hotell</strong></button>
             </div>
         </div>
@@ -111,6 +128,9 @@ export default{
 </template>
 
 <style>
+* {
+    box-sizing: border-box;
+}
 
 body {
     height: 100vh;
@@ -120,24 +140,18 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-.image250 {
-    display: inline-block;
-    width: 100%;
-    max-width: 150px;
-    height: 100%;
-    max-height: 150px;
-}
-
-* {
-    box-sizing: border-box;
+.addhotel-card {
+    width: 68.2rem;
+    background-color: #d9d9d9 !important;
+    border: none !important;
+    border-radius: 20px !important;
 }
 
 .inp {
     position: relative;
     margin: auto;
     width: 100%;
-    max-width: 500px;
-    border-radius: 3px;
+    border-radius: 10px;
     overflow: hidden;
     background-color: #fff;
 }
@@ -151,7 +165,7 @@ body {
     font-weight: 500;
     transform-origin: 0 0;
     transform: translate3d(0, 0, 0);
-    transition: all .2s ease;
+    transition: all 0.2s ease;
     pointer-events: none;
 }
 
@@ -180,7 +194,7 @@ body {
     background: rgba(0, 0, 0, 0.02);
     box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
     color: #000;
-    transition: all .15s ease;
+    transition: all 0.15s ease;
 }
 
 .inp input:hover {
@@ -196,42 +210,40 @@ body {
 .inp input:focus {
     background: rgba(0, 0, 0, 0.05);
     outline: none;
-    box-shadow: inset 0 -2px 0 #0077FF;
+    box-shadow: inset 0 -2px 0 #c94ef2;
 }
 
 .inp input:focus+.label {
-    color: #0077FF;
+    color: #c94ef2;
     transform: translate3d(0, -12px, 0) scale(0.75);
 }
 
 .inp input:focus+.label+.focus-bg {
     transform: scaleX(1);
-    transition: all .1s ease;
+    transition: all 0.1s ease;
 }
 
-.card {
-    background-color: #fff !important;
-}
-
-.input-file-container {
-    position: relative;
-    width: 250px;
+.image250 {
+    display: inline-block;
+    object-fit: cover;
+    width: 100%;
+    max-width: auto;
+    height: 100%;
+    max-height: 30vh;
 }
 
 .js .input-file-trigger {
     display: block;
     padding: 16px 15px;
-    background: -webkit-linear-gradient(right, #947af1, #c94ef2);
+    background: #6f4af0;
     color: #fff;
     font-size: 1em;
     border-radius: 10px;
-    margin-right: 15px;
     cursor: pointer;
 }
 
 .js .input-file {
     position: absolute;
-    width: 250px;
     opacity: 0;
     padding: 13px;
     cursor: pointer;
@@ -241,12 +253,35 @@ body {
 .js .input-file:focus+.input-file-trigger,
 .js .input-file-trigger:hover,
 .js .input-file-trigger:focus {
-    background: #6f4af0;
+    background: #947af1;
     color: #fff;
 }
 
-input[type=file]::-webkit-file-upload-button {
-    cursor: pointer;
+.card-footer {
+    background-color: transparent !important;
+    border: none !important;
+    padding: 16px !important;
 }
 
+.sub-button {
+    display: block;
+    width: 20%;
+    color: #fff !important;
+    background: -webkit-linear-gradient(right, #6f4af0, #c94ef2) !important;
+    border: -webkit-linear-gradient(right, #6f4af0, #c94ef2) !important;
+    border-radius: 10px !important;
+    padding: 12px 28px !important;
+    font-size: 18px !important;
+    cursor: pointer;
+    text-align: center;
+}
+
+.sub-button:hover {
+    background: #947af1 !important;
+    border: #947af1 1px solid !important;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    cursor: pointer;
+}
 </style>

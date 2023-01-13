@@ -223,4 +223,6 @@ export default {
 
 </template>
 
-<style src="vue-multiselect/dist/vue-multiselect.css"></style>
+<style src="../src/css/logReg.css">
+
+</style>

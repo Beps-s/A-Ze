@@ -1,45 +1,45 @@
 <script>
-    export default {
-        data() {
-            return {
-                hotel: [],
-                rooms: [],
-                selectedRoom: ""
+export default {
+    data() {
+        return {
+            hotel: [],
+            rooms: [],
+            selectedRoom: ""
+        }
+    },
+    methods: {
+        async getHotelData() {
+            const hotelRequest = {
+                method: "GET"
             }
-        },
-        methods: {
-            async getHotelData() {
-                const hotelRequest = {
-                    method: "GET"
-                }
-                await fetch("http://192.168.16.94:5000/hotels/" + this.$route.params.id, hotelRequest)
+            await fetch("http://192.168.16.94:5000/hotels/" + this.$route.params.id, hotelRequest)
                 .then(response => response.json())
                 .then(data => this.hotel = data[0])
 
-                await fetch("http://192.168.16.94:5000/rooms/" + this.$route.params.id, hotelRequest)
+            await fetch("http://192.168.16.94:5000/rooms/" + this.$route.params.id, hotelRequest)
                 .then(response => response.json())
                 .then(data => data.forEach(element => {
                     this.rooms.push(element)
                 }))
-                console.log(this.hotel)
-                console.log(this.rooms)
-            }
-
-        },
-        computed: {
-            selectedRoom: {
-                get() {
-                    return this.selectedRoom
-                },
-                set(newRoom) {
-                    this.selectedRoom = newRoom
-                }
-            }
-        },
-        created() {
-            setTimeout(() => this.getHotelData(), 700)
+            console.log(this.hotel)
+            console.log(this.rooms)
         }
-    }    
+
+    },
+    computed: {
+        selectedRoom: {
+            get() {
+                return this.selectedRoom
+            },
+            set(newRoom) {
+                this.selectedRoom = newRoom
+            }
+        }
+    },
+    created() {
+        setTimeout(() => this.getHotelData(), 700)
+    }
+}    
 </script>
 
 <template>
@@ -77,8 +77,9 @@
                                 <h3 id="hotel-location" style="margin-bottom: 0;">{{ hotel.Aadress }}</h3>
                             </div>
                             <div class="d-flex align-items-center">
-                                <font-awesome-icon icon="fa-solid fa-star" style="font-size: 30px;"/>
-                                <h1 id="hotel-rating" class="text-start" style="margin: 0 0 0 5px;">{{ hotel.Tarnid }}</h1>
+                                <font-awesome-icon icon="fa-solid fa-star" style="font-size: 30px;" />
+                                <h1 id="hotel-rating" class="text-start" style="margin: 0 0 0 5px;">{{ hotel.Tarnid }}
+                                </h1>
                             </div>
                         </div>
                         <div class="py-5">
@@ -138,114 +139,6 @@
     </div>
 </template>
 
-<style>
-* {
-    font-family: "Roboto", sans-serif;
-}
+<style src="../css/hotelPage.css">
 
-body {
-    background-color: #f4f3ef !important;
-}
-
-.btn-primary {
-    background: #6f4af0 !important;
-}
-
-.header-link {
-    text-decoration: none;
-    color: #000000;
-    font-weight: 600;
-}
-
-.round {
-    border-radius: 20px !important;
-}
-
-.hotel-img {
-    object-fit: cover;
-    height: 30vw;
-    max-height: 550px;
-    width: 100%;
-}
-
-.hotel-card {
-    background-color: #f4f3ef !important;
-    height: 30vw !important;
-    max-height: 550px !important;
-    border: none !important;
-    border-radius: 20px !important;
-}
-
-.hotel-card-bg {
-    background-color: #d9d9d9 !important;
-    border-radius: 0 0 20px 20px !important;
-}
-
-.tab {
-    color: #000000 !important;
-    background-color: #bebebe !important;
-    text-decoration: none !important;
-    font-size: large;
-    padding: 12px 0 12px 0 !important;
-    border: none !important;
-    border-radius: 20px 20px 0 0 !important;
-}
-
-.tab.active {
-    background-color: #d9d9d9 !important;
-}
-
-.tab:focus {
-    background-color: #d9d9d9;
-}
-
-.star {
-    object-fit: contain;
-    height: 2vw;
-    width: 2vw;
-}
-
-#book-btn {
-    font-size: x-large;
-    border-radius: 10px;
-}
-
-.btn-outline-primary {
-    --bs-btn-color: #6f4af0 !important;
-    --bs-btn-border-color: #6f4af0 !important;
-    --bs-btn-hover-bg: #6f4af0 !important;
-    --bs-btn-hover-border-color: #6f4af0 !important;
-    --bs-btn-active-bg: #5335bd !important;
-    --bs-btn-active-border-color: #5335bd !important;
-}    
-.spinner {
-  animation: rotate 2s linear infinite;
-  z-index: 2;
-  width: 50px;
-  height: 50px;
-}
-.spinner .path {
-  stroke: #93bfec;
-  stroke-linecap: round;
-  animation: dash 1.5s ease-in-out infinite;
-}
-@keyframes rotate {
-  100% {
-    transform: rotate(360deg);
- }
-}
-@keyframes dash {
-  0% {
-    stroke-dasharray: 1, 150;
-    stroke-dashoffset: 0;
- }
-  50% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -35;
- }
-  100% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -124;
- }
-}
 </style>

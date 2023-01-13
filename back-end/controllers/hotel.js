@@ -1,4 +1,4 @@
-import { getHotels, getHotelByName, insertHotel, deleteHotelById } from "../models/hotelModel.js";
+import { getHotels, getHotelByName, insertHotel, deleteHotelById, getHotelById } from "../models/hotelModel.js";
  
 
 export const showHotels = (req, res) => {
@@ -11,6 +11,17 @@ export const showHotels = (req, res) => {
     });
 }
  
+export const showHotelById = (req, res) => {
+    let id = req.params.id
+    getHotelById(id, (err, results) => {
+        if (err){
+            res.send(err);
+        }else{
+            res.json(results);
+        }
+    });
+}
+
 export const showHotelByName = (req, res) => {
     let name = req.params.name
     name = name.slice(1)
@@ -27,6 +38,7 @@ export const showHotelByName = (req, res) => {
 
 export const createHotel = (req, res) => {
     const data = req.body;
+    console.log(data.Pilt)
     insertHotel(data, (err, results) => {
         if (err){
             res.send(err);

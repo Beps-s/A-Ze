@@ -32,13 +32,13 @@ export const loginUser = (req, res) => {
 
 export const logoutUser = (req, res) => {
     const data = req.body
+    console.log(data)
     sessions.forEach((element) => {
         if (
-          element.user == data.Email ||
           element.id == data.sessionId
         ) {
-          sessions.splice(element);
-          return res.status(201).send({ success: true });
+            sessions.splice(element);
+            return res.status(201).send({ success: true });
         } else {
           return res.status(401).send({ error: "Invalid sessionId or username" });
         }

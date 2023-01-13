@@ -33,7 +33,7 @@ export default {
             <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
         </svg>
         <div v-else v-for="hotel in hotels">
-            <Hotel :nimi="hotel.Nimi" :hind="hotel.Hind" :pilt="hotel.pilt" />
+            <Hotel :hotel_id="hotel.Hotelli_ID" :nimi="hotel.Nimi" :aadress="hotel.Aadress" :hind="hotel.Hind" :pilt="hotel.pilt" />
         </div>
     </div>
 </template>

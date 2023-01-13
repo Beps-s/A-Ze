@@ -33,7 +33,6 @@ export default{
                   Omanik: this.sessionID
               }) 
             }
-            console.log(insertHotelRequest.body)
             await fetch('http://192.168.16.94:5000/hotels', insertHotelRequest)
                 .then(response => response.json())
                 .then(data => {(console.log(data))})            

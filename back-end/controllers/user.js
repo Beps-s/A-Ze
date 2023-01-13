@@ -21,7 +21,7 @@ export const loginUser = (req, res) => {
         }else{
             if (data.parool == results[0].parool && data.Email == results[0].Email){
                 let sessionID = Math.round(Math.random() * 100000000)
-                sessions.push({user: data.Email, sessionID: sessionID})
+                sessions.push({user: data.Email, sessionID: sessionID, userID: results[0].Kasutaja_ID})
                 res.json({sessionID: sessionID});
             } else {
                 res.json({ error: "Vale e-mail või parool"})
@@ -32,7 +32,6 @@ export const loginUser = (req, res) => {
 
 export const logoutUser = (req, res) => {
     const data = req.body
-    console.log(data)
     sessions.forEach((element) => {
         if (
           element.id == data.sessionId

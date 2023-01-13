@@ -40,25 +40,21 @@ export const showHotelByName = (req, res) => {
 
 export const createHotel = (req, res) => {
     let data = req.body;
-    let email
-    let userId
     sessions.forEach((element) => {
-        if (
-          element.id == data.sessionId
-        ){
-            email = element.email
-        }
+        if (element.sessionID == data.Omanik){
+            data.Omanik = element.userID
+        } else{
+            res.json({error: 'putsis'})
+            return
+        }  
     })
-    getUserId(email, (err, results) => {
-        console.log(results)
-    });
-    /*insertHotel(data, (err, results) => {
+    insertHotel(data, (err, results) => {
         if (err){
             res.send(err);
         }else{
             res.json(results);
         }
-    });*/
+    });
 }
 
  

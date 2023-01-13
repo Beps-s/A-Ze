@@ -23,7 +23,7 @@ export const insertUser = (data,result) => {
 }
 // login
 export const getUser = (data, result) => {
-    db.query("SELECT Email, parool FROM kasutaja where Email = ?", [data], (err, results) => {
+    db.query("SELECT Email, parool, Kasutaja_ID FROM kasutaja where Email = ?", [data], (err, results) => {
         if(err) {
             console.log(err);
             result(err, null);

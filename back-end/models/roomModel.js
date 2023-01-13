@@ -11,3 +11,14 @@ export const insertRoom = (data, result) => {
         }
     });
 }
+
+export const getRoomsByHotelID = (data,result) => {
+    db.query("SELECT * FROM TUBA WHERE Hotelli_ID = ?", [data], (err, results) => {
+        if(err) {
+            console.log(err);
+            result(err, null);
+        } else {
+            result(null, results);
+        }
+    })
+}

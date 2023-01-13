@@ -3,7 +3,7 @@ import express from "express";
  
 // import function from controller
 import { showHotels, showHotelByName, createHotel, deleteHotel, showHotelById } from "../controllers/hotel.js";
-import { createRoom } from "../controllers/room.js";
+import { createRoom, showRoomsByHotelId } from "../controllers/room.js";
 import { createUser, loginUser, logoutUser } from "../controllers/user.js";
  
 // init express router
@@ -30,6 +30,9 @@ router.put('/products/:id', updateProduct);
 
 // Add room
 router.post('/rooms', createRoom);
+
+// Get rooms by hotel ID
+router.get('/rooms/:id', showRoomsByHotelId)
  
 // Add user
 router.post('/users', createUser);

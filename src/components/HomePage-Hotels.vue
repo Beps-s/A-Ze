@@ -18,7 +18,7 @@ export default {
     <div class="col" style="padding-top: 12px; padding-bottom: 12px;">
         <div class="card h-100">
             <RouterLink v-bind:to="'/hotel/' + hotel_id" class="card-link">
-                <img v-bind:src="pilt" class="card-img-top">
+                <img v-bind:src="'http://192.168.16.94:5000/' + pilt" class="card-img-top">
                 <div class="card-body text-center">
                     <h5 id="hotel-name" class="card-title" style="margin: 0">{{ nimi }}</h5>
                     <p>{{ aadress }}</p>

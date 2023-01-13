@@ -62,16 +62,6 @@ a {
 
 /* add Hotel view */
 
-.sub-button {
-  display: block;
-  width: 100%;
-  border: none;
-  padding: 14px 28px;
-  font-size: 16px;
-  cursor: pointer;
-  text-align: center;
-}
-
 body {
     height: 100vh;
     display: grid;

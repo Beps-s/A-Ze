@@ -8,7 +8,7 @@ export default{
             muuHotell: '',
             aadressHotell: '',
             piltHotell: '',
-            sessionID: localStorage.getItem('sessionID')
+            sessionID: localStorage.getItem('SessionID')
         }
     },
     methods: {
@@ -103,7 +103,7 @@ export default{
                 </form>
             </div>
             <div class="card-footer text-center align-bottom" style="background-color: #fff">
-                <button @click="insertHotel" form="addForm" class="sub-button btn btn-primary"><strong>Lisa oma hotell</strong></button>
+                <button @click="insertHotel" class="sub-button btn btn-primary"><strong>Lisa oma hotell</strong></button>
             </div>
         </div>
     </div>

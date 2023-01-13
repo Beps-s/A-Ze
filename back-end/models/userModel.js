@@ -32,3 +32,14 @@ export const getUser = (data, result) => {
         }
     });
 }
+
+export const getUserId = (data, result) => {
+    db.query("SELECT Kasutaja_ID FROM kasutaja where Email = ?", [data], (err, results) => {
+        if(err){
+            console.log(err);
+            result(err, null);
+        }else {
+            result(null, results)
+        }
+    })
+}

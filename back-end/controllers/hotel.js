@@ -1,4 +1,6 @@
 import { getHotels, getHotelByName, insertHotel, deleteHotelById, getHotelById } from "../models/hotelModel.js";
+import { getUserId } from "../models/userModel.js";
+import { sessions } from "./user.js";
  
 
 export const showHotels = (req, res) => {
@@ -37,15 +39,26 @@ export const showHotelByName = (req, res) => {
  
 
 export const createHotel = (req, res) => {
-    const data = req.body;
-    console.log(data.Pilt)
-    insertHotel(data, (err, results) => {
+    let data = req.body;
+    let email
+    let userId
+    sessions.forEach((element) => {
+        if (
+          element.id == data.sessionId
+        ){
+            email = element.email
+        }
+    })
+    getUserId(email, (err, results) => {
+        console.log(results)
+    });
+    /*insertHotel(data, (err, results) => {
         if (err){
             res.send(err);
         }else{
             res.json(results);
         }
-    });
+    });*/
 }
 
  

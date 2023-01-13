@@ -1,5 +1,5 @@
 <script>
-import Hotel from "./HotelPage-Hotels.vue"
+import Hotel from "../components/HotelPage-Hotels.vue"
 
 export default {
     components: {

@@ -73,7 +73,6 @@ export default {
           } else {
             localStorage.setItem('SessionID', data.sessionID)
             this.$store.commit('setLoggedIn', true)
-            console.log(this.loggedIn)
           }
         })
     },

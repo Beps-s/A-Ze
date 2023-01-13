@@ -29,29 +29,6 @@ a {
 
 /* Home page */
 
-.col {
-  padding-top: 12px;
-  padding-bottom: 12px;
-}
-
-.card-homePage {
-  background-color: #d9d9d9 !important;
-  border: none !important;
-}
-
-a:link {
-  text-decoration: none;
-  color: #000000;
-}
-
-.card-link:visited {
-  color: gray;
-}
-
-a:hover {
-  color: #6f4af0 !important;
-}
-
 .spinner {
   animation: rotate 2s linear infinite;
   z-index: 2;

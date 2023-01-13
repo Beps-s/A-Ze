@@ -1,5 +1,4 @@
 <script>
-import "../css/style.css"
 import Hotel from "../components/HomePage-Hotels.vue"
 
 export default {
@@ -45,6 +44,14 @@ export default {
 
 body {
     background-color: #f4f3ef !important;
+}
+
+.btn-primary {
+    background: -webkit-linear-gradient(right, #6F4AF0, #c94ef2) !important;
+}
+
+.btn-primary:hover {
+    background: #6f4af0 !important;
 }
 
 .header-link {

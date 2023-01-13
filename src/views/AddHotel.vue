@@ -1,5 +1,44 @@
 <script>
-import "../css/style.css"
+export default {
+    data() {
+        return {
+            nimiHotell: '',
+            teenusedHotell: '',
+            kirjeldusHotell: '',
+            muuHotell: '',
+            aadressHotell: '',
+            piltHotell: '',
+            sessionID: localStorage.getItem('SessionID')
+        }
+    },
+    methods: {
+        onSelect() {
+            const file = this.$refs.file.files[0]
+            this.piltHotell = file
+        },
+        insertHotel: async function (e) {
+            const insertHotelRequest = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    Nimi: this.nimiHotell,
+                    Tarnid: this.tarnidHotell,
+                    Kirjeldus: this.kirjeldusHotell,
+                    Aadress: this.aadressHotell,
+                    Hotelli_teenused: this.teenusedHotell,
+                    Muud_teenused: this.muuHotell,
+                    Pilt: this.piltHotell,
+                    Omanik: this.sessionID
+                })
+            }
+            await fetch('http://192.168.16.94:5000/hotels', insertHotelRequest)
+                .then(response => response.json())
+                .then(data => { (console.log(data)) })
+        }
+    }
+}
 </script>
 <template>
     <div class="d-flex justify-content-center mt-3">
@@ -12,30 +51,31 @@ import "../css/style.css"
                     <div class="col-md-6">
                         <div class="py-2">
                             <label for="nimiHotell" class="inp">
-                                <input type="text" id="nimiHotell" placeholder="&nbsp;" required>
+                                <input type="text" id="nimiHotell" v-model="nimiHotell" placeholder="&nbsp;" required>
                                 <span class="label">Hotelli nimi</span>
                                 <span class="focus-bg"></span>
                             </label>
                         </div>
                         <div class="py-2">
                             <label for="kirjeldusHotell" class="inp">
-                                <input type="text" id="kirjeldusHotell" placeholder="&nbsp;" required>
+                                <input type="text" id="kirjeldusHotell" v-model="kirjeldusHotell" placeholder="&nbsp;"
+                                    required>
                                 <span class="label">Hotelli Kirjeldus</span>
                                 <span class="focus-bg"></span>
                             </label>
                         </div>
                         <div class="py-2">
                             <label for="aadressHotell" class="inp">
-                                <input name="aadressHotell" id="aadressHotell" required autocomplete="off"
-                                    placeholder="&nbsp;">
+                                <input name="aadressHotell" id="aadressHotell" v-model="aadressHotell" required
+                                    autocomplete="off" placeholder="&nbsp;">
                                 <span class="label">Aadress</span>
                                 <span class="focus-bg"></span>
                             </label>
                         </div>
                         <div class="py-2">
-                            <label for="aadressHotell" class="inp">
-                                <input name="aadressHotell" id="aadressHotell" required autocomplete="off"
-                                    placeholder="&nbsp;">
+                            <label for="tarnidHotell" class="inp">
+                                <input name="tarnidHotell" id="tarnidHotell" v-model="tarnidHotell" required
+                                    autocomplete="off" placeholder="&nbsp;">
                                 <span class="label">Tärnid</span>
                                 <span class="focus-bg"></span>
                             </label>
@@ -44,21 +84,22 @@ import "../css/style.css"
                     <div class="col-md-6">
                         <div class="py-2">
                             <label for="teenusedHotell" class="inp">
-                                <input type="text" id="teenusedHotell" placeholder="&nbsp;" required>
+                                <input type="text" id="teenusedHotell" v-model="teenusedHotell" placeholder="&nbsp;"
+                                    required>
                                 <span class="label">Hotellis pakutavad teenused</span>
                                 <span class="focus-bg"></span>
                             </label>
                         </div>
                         <div class="py-2">
                             <label for="muuHotell" class="inp">
-                                <input type="text" id="muuHotell" placeholder="&nbsp;" required>
+                                <input type="text" id="muuHotell" v-model="muuHotell" placeholder="&nbsp;" required>
                                 <span class="label">Muud teenused</span>
                                 <span class="focus-bg"></span>
                             </label>
                         </div>
                         <div class="pt-2">
-                            <input type="file" accept="image/png, image/jpeg" class="input-file" id="piltHotell"
-                                onchange="loadFile(event)">
+                            <input type="file" accept="image/png, image/jpeg" @change="onSelect" ref="file"
+                                class="input-file" id="piltHotell" onchange="loadFile(event)">
                             <label tabindex="0" for="piltHotell" class="input-file-trigger">Lae ülesse pilt
                                 hotellist</label>
                         </div>
@@ -69,7 +110,8 @@ import "../css/style.css"
                 </form>
             </div>
             <div class="card-footer text-center align-bottom">
-                <button type="submit" form="addForm" class="sub-button btn"><strong>Lisa oma
+                <button @click="insertHotel" id="book-btn" type="submit" form="addForm"
+                    class="sub-button btn"><strong>Lisa oma
                         hotell</strong></button>
             </div>
         </div>

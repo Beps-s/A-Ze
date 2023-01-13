@@ -23,7 +23,18 @@ export const getHotelByName = (name, result) => {
         }
     });   
 }
- 
+
+export const getHotelById = (id, result) => {
+    db.query(`SELECT * FROM hotell WHERE Hotelli_ID = ?`, [id], (err, results) => {      
+        if(err) {
+            console.log(err);
+            result(err, null);
+        } else {
+            result(null, results);
+        }
+    });   
+}
+
 // Add hotel
 export const insertHotel = (data, result) => {
     db.query("INSERT INTO hotell SET ?", [data], (err, results) => {      

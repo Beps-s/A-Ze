@@ -4,7 +4,10 @@ import express from "express";
 import cors from "cors";
 // import routes
 import Router from "./routes/routes.js";
- 
+// import fileupload
+import fileUpload from "express-fileupload";
+
+
 // init express
 const app = express();
  
@@ -13,6 +16,12 @@ app.use(express.json());
  
 // use cors
 app.use(cors());
+
+// use fileUpload
+app.use(fileUpload())
+
+app.use(express.static('images'));
+
  
 // use router
 app.use(Router);

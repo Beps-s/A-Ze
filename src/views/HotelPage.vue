@@ -44,11 +44,11 @@ export default {
 
 <template>
     <div class="row my-5">
-        <svg v-if="!hotel" class="spinner col-12" viewBox="0 0 50 50">
+        <svg v-if="!hotel" class="spinner col-2 mx-auto" viewBox="0 0 50 50">
             <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
         </svg>
         <div class="col-5">
-            <img v-bind:src="hotel.pilt" class="hotel-img round" />
+            <img v-bind:src="'http://192.168.16.94:5000/' + hotel.pilt" class="hotel-img round" />
         </div>
         <div class="col-7">
             <div class="card hotel-card">

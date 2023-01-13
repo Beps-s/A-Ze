@@ -1,50 +1,50 @@
 <script>
-    export default {
-        data() {
-            return {
-                hotel: [],
-                rooms: [],
-                selectedRoom: ""
+export default {
+    data() {
+        return {
+            hotel: [],
+            rooms: [],
+            selectedRoom: ""
+        }
+    },
+    methods: {
+        async getHotelData() {
+            const hotelRequest = {
+                method: "GET"
             }
-        },
-        methods: {
-            async getHotelData() {
-                const hotelRequest = {
-                    method: "GET"
-                }
-                await fetch("http://192.168.16.94:5000/hotels/" + this.$route.params.id, hotelRequest)
+            await fetch("http://192.168.16.94:5000/hotels/" + this.$route.params.id, hotelRequest)
                 .then(response => response.json())
                 .then(data => this.hotel = data[0])
 
-                await fetch("http://192.168.16.94:5000/rooms/" + this.$route.params.id, hotelRequest)
+            await fetch("http://192.168.16.94:5000/rooms/" + this.$route.params.id, hotelRequest)
                 .then(response => response.json())
                 .then(data => data.forEach(element => {
                     this.rooms.push(element)
                 }))
-                console.log(this.hotel)
-                console.log(this.rooms)
-            }
-
-        },
-        computed: {
-            selectedRoom: {
-                get() {
-                    return this.selectedRoom
-                },
-                set(newRoom) {
-                    this.selectedRoom = newRoom
-                }
-            }
-        },
-        created() {
-            setTimeout(() => this.getHotelData(), 700)
+            console.log(this.hotel)
+            console.log(this.rooms)
         }
-    }    
+
+    },
+    computed: {
+        selectedRoom: {
+            get() {
+                return this.selectedRoom
+            },
+            set(newRoom) {
+                this.selectedRoom = newRoom
+            }
+        }
+    },
+    created() {
+        setTimeout(() => this.getHotelData(), 700)
+    }
+}    
 </script>
 
 <template>
     <div class="row my-5">
-        <svg v-if="!hotel" class="spinner col-12" viewBox="0 0 50 50">
+        <svg v-if="!hotel" class="spinner col-2 mx-auto" viewBox="0 0 50 50">
             <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
         </svg>
         <div class="col-5">
@@ -77,8 +77,9 @@
                                 <h3 id="hotel-location" style="margin-bottom: 0;">{{ hotel.Aadress }}</h3>
                             </div>
                             <div class="d-flex align-items-center">
-                                <font-awesome-icon icon="fa-solid fa-star" style="font-size: 30px;"/>
-                                <h1 id="hotel-rating" class="text-start" style="margin: 0 0 0 5px;">{{ hotel.Tarnid }}</h1>
+                                <font-awesome-icon icon="fa-solid fa-star" style="font-size: 30px;" />
+                                <h1 id="hotel-rating" class="text-start" style="margin: 0 0 0 5px;">{{ hotel.Tarnid }}
+                                </h1>
                             </div>
                         </div>
                         <div class="py-5">
@@ -217,35 +218,41 @@ body {
     --bs-btn-hover-border-color: #6f4af0 !important;
     --bs-btn-active-bg: #5335bd !important;
     --bs-btn-active-border-color: #5335bd !important;
-}    
+}
+
 .spinner {
-  animation: rotate 2s linear infinite;
-  z-index: 2;
-  width: 50px;
-  height: 50px;
+    animation: rotate 2s linear infinite;
+    z-index: 2;
+    width: 50px;
+    height: 50px;
 }
+
 .spinner .path {
-  stroke: #93bfec;
-  stroke-linecap: round;
-  animation: dash 1.5s ease-in-out infinite;
+    stroke: #947af1;
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
 }
+
 @keyframes rotate {
-  100% {
-    transform: rotate(360deg);
- }
+    100% {
+        transform: rotate(360deg);
+    }
 }
+
 @keyframes dash {
-  0% {
-    stroke-dasharray: 1, 150;
-    stroke-dashoffset: 0;
- }
-  50% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -35;
- }
-  100% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -124;
- }
+    0% {
+        stroke-dasharray: 1, 150;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -35;
+    }
+
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -124;
+    }
 }
 </style>

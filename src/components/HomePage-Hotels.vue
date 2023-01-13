@@ -11,7 +11,7 @@ export default {
 
 <template>
     <div class="col" style="padding-top: 12px; padding-bottom: 12px;">
-        <div class="card h-100">
+        <div class="card home-card h-100">
             <a class="card-link" href="/hotel">
                 <img src="{{ image }}" class="card-img-top">
                 <div class="card-body text-center">

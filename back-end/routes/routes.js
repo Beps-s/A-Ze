@@ -5,6 +5,7 @@ import express from "express";
 import { showHotels, showHotelByName, createHotel, deleteHotel, showHotelById } from "../controllers/hotel.js";
 import { createRoom, showRoomsByHotelId } from "../controllers/room.js";
 import { createUser, loginUser, logoutUser } from "../controllers/user.js";
+import { uploadImage } from '../controllers/images.js'
  
 // init express router
 const router = express.Router();
@@ -42,6 +43,9 @@ router.post('/sessions', loginUser);
 
 // Log out
 router.delete('/sessions', logoutUser)
+
+// upload images
+router.post('/upload', uploadImage)
  
 // export default router
 export default router;

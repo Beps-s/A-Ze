@@ -9,17 +9,13 @@ export default {
             kirjeldusHotell: '',
             muuHotell: '',
             aadressHotell: '',
-            piltHotell: '',
             sessionID: localStorage.getItem('SessionID'),
             selected: null,
             options: ['WC', 'Dušš', 'Hommikusöök']
         }
     },
     methods: {
-        onSelect() {
-            const file = this.$refs.file.files[0]
-            this.piltHotell = file
-        },
+
         insertHotel: async function (e) {
             const insertHotelRequest = {
                 method: "POST",
@@ -33,7 +29,7 @@ export default {
                     Aadress: this.aadressHotell,
                     Hotelli_teenused: this.teenusedHotell,
                     Muud_teenused: this.muuHotell,
-                    Pilt: this.piltHotell,
+                    Pilt: piltHotell.files[0].name,
                     Omanik: this.sessionID
                 })
             }
@@ -75,8 +71,7 @@ export default {
                         </div>
                         <div class="py-2">
                             <label for="aadressHotell" class="inp">
-                                <input name="aadressHotell" id="aadressHotell" v-model="aadressHotell" required
-                                    autocomplete="off" placeholder="&nbsp;">
+                                <input name="aadressHotell" id="aadressHotell" v-model="aadressHotell" required autocomplete="off" placeholder="&nbsp;">
                                 <span class="label">Aadress</span>
                                 <span class="focus-bg"></span>
                             </label>
@@ -101,28 +96,27 @@ export default {
                         </div>
                         <div class="py-2">
                             <label for="muuHotell" class="inp">
-                                <input type="text" id="muuHotell" v-model="muuHotell" placeholder="&nbsp;" required>
+                                <input type="text" id="muuHotell" v-model="muuHotell" placeholder="&nbsp;">
                                 <span class="label">Muud teenused</span>
                                 <span class="focus-bg"></span>
                             </label>
                         </div>
                         <div class="pt-2">
-                            <input type="file" accept="image/png, image/jpeg" @change="onSelect" ref="file"
-                                class="input-file" id="piltHotell" onchange="loadFile(event)">
-                            <label tabindex="0" for="piltHotell" class="input-file-trigger">Lae ülesse pilt
-                                hotellist</label>
+                            <form id="piltForm" action="http://192.168.16.94:5000/upload" method="POST" enctype="multipart/form-data">
+                                <input type="file" name="image" accept="image/png, image/jpeg" class="input-file" id="piltHotell">
+                                <label tabindex="0" for="piltHotell" class="input-file-trigger">Lae ülesse pilt hotellist</label>
+                            </form>
                         </div>
                         <div class="pt-4 justify-content-center text-center">
                             <img class="image250" id="output" />
                         </div>
                     </div>
+                    <div class="card-footer text-center align-bottom">
+                        <button id="book-btn" @click="insertHotel" form="piltForm" class="sub-button btn"><strong>Lisa oma hotell</strong></button>
+                    </div>
                 </form>
             </div>
-            <div class="card-footer text-center align-bottom">
-                <button @click="insertHotel" id="book-btn" type="submit" form="addForm"
-                    class="sub-button btn"><strong>Lisa oma
-                        hotell</strong></button>
-            </div>
+            
         </div>
     </div>
 </template>

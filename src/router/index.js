@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import Home from "../views/HomePage.vue";
 import AddHotel from "../views/AddHotel.vue";
+import AddRoom from "../views/AddRoom.vue";
 import HotelPage from "../views/HotelPage.vue";
 import MyBookings from "../views/MyBookingsPage.vue";
 
@@ -17,6 +18,11 @@ const router = createRouter({
       path: "/addhotel",
       name: "Add hotel",
       component: AddHotel,
+    },
+    {
+      path: "/addroom",
+      name: "Add room",
+      component: AddRoom,
     },
     {
       path: "/hotel/:id",

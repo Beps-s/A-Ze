@@ -57,7 +57,6 @@ export default {
                             <label for="nimiHotell" class="inp">
                                 <input type="text" id="nimiHotell" v-model="nimiHotell" placeholder="&nbsp;" required>
                                 <span class="label">Hotelli nimi</span>
-                                <span class="focus-bg"></span>
                             </label>
                         </div>
                         <div class="py-2">
@@ -65,7 +64,6 @@ export default {
                                 <input type="text" id="kirjeldusHotell" v-model="kirjeldusHotell" placeholder="&nbsp;"
                                     required>
                                 <span class="label">Hotelli Kirjeldus</span>
-                                <span class="focus-bg"></span>
                             </label>
                             <div>
                                 <VueMultiselect v-model="selected" :options="options" :multiple="true"
@@ -78,7 +76,6 @@ export default {
                                 <input name="aadressHotell" id="aadressHotell" v-model="aadressHotell" required
                                     autocomplete="off" placeholder="&nbsp;">
                                 <span class="label">Aadress</span>
-                                <span class="focus-bg"></span>
                             </label>
                         </div>
                         <div class="py-2">
@@ -86,7 +83,6 @@ export default {
                                 <input name="tarnidHotell" id="tarnidHotell" v-model="tarnidHotell" required
                                     autocomplete="off" placeholder="&nbsp;">
                                 <span class="label">Tärnid</span>
-                                <span class="focus-bg"></span>
                             </label>
                         </div>
                     </div>
@@ -96,14 +92,12 @@ export default {
                                 <input type="text" id="teenusedHotell" v-model="teenusedHotell" placeholder="&nbsp;"
                                     required>
                                 <span class="label">Hotellis pakutavad teenused</span>
-                                <span class="focus-bg"></span>
                             </label>
                         </div>
                         <div class="py-2">
                             <label for="muuHotell" class="inp">
                                 <input type="text" id="muuHotell" v-model="muuHotell" placeholder="&nbsp;" required>
                                 <span class="label">Muud teenused</span>
-                                <span class="focus-bg"></span>
                             </label>
                         </div>
                         <div class="pt-2">
@@ -169,25 +163,13 @@ body {
     pointer-events: none;
 }
 
-.inp .focus-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.05);
-    z-index: -1;
-    transform: scaleX(0);
-    transform-origin: left;
-}
-
 .inp input {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
     border: 0;
     font-family: inherit;
-    padding: 16px 12px 0 12px;
+    padding: 8px 12px 8px 12px;
     height: 56px;
     font-size: 16px;
     font-weight: 400;

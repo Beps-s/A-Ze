@@ -32,9 +32,21 @@ export default {
 </template>
 
 <style>
+.card {
+    --bs-card-inner-border-radius: 20px !important;
+}
+
 .home-card {
     background-color: #f4f3ef !important;
     border: none !important;
+    border-radius: 20px !important;
+}
+
+.card-img-top {
+    object-fit: cover !important;
+    height: 20vw !important;
+    max-height: 306px !important;
+    border-radius: 20px;
 }
 
 a:link {

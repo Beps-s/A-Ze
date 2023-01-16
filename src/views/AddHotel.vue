@@ -9,17 +9,13 @@ export default {
             kirjeldusHotell: '',
             muuHotell: '',
             aadressHotell: '',
-            piltHotell: '',
             sessionID: localStorage.getItem('SessionID'),
-            selected: null,
-            options: ['WC', 'Dušš', 'Hommikusöök']
+            selected: [],
+            options: ['WC', 'Dušš', 'Hommikusöök', '1', '2', '3', '4', '5']
         }
     },
     methods: {
-        onSelect() {
-            const file = this.$refs.file.files[0]
-            this.piltHotell = file
-        },
+
         insertHotel: async function (e) {
             const insertHotelRequest = {
                 method: "POST",
@@ -31,9 +27,9 @@ export default {
                     Tarnid: this.tarnidHotell,
                     Kirjeldus: this.kirjeldusHotell,
                     Aadress: this.aadressHotell,
-                    Hotelli_teenused: this.teenusedHotell,
+                    Hotelli_teenused: this.selected,
                     Muud_teenused: this.muuHotell,
-                    Pilt: this.piltHotell,
+                    Pilt: piltHotell.files[0].name,
                     Omanik: this.sessionID
                 })
             }
@@ -60,30 +56,38 @@ export default {
                             </label>
                         </div>
                         <div class="py-2">
-                            <label for="kirjeldusHotell" class="inp">
-                                <input type="text" id="kirjeldusHotell" v-model="kirjeldusHotell" placeholder="&nbsp;"
-                                    required>
-                                <span class="label">Hotelli Kirjeldus</span>
-                            </label>
                             <div>
                                 <VueMultiselect v-model="selected" :options="options" :multiple="true"
                                     :close-on-select="true" placeholder="Hotellis pakutavad teenused">
                                 </VueMultiselect>
+                                <span class="focus-bg"></span>
                             </div>
                         </div>
-                        <div class="py-2">
+                        <div class="py-3">
                             <label for="aadressHotell" class="inp">
                                 <input name="aadressHotell" id="aadressHotell" v-model="aadressHotell" required
                                     autocomplete="off" placeholder="&nbsp;">
                                 <span class="label">Aadress</span>
                             </label>
                         </div>
-                        <div class="py-2">
-                            <label for="tarnidHotell" class="inp">
-                                <input name="tarnidHotell" id="tarnidHotell" v-model="tarnidHotell" required
-                                    autocomplete="off" placeholder="&nbsp;">
-                                <span class="label">Tärnid</span>
-                            </label>
+                        <div class="py-2 d-flex justify-content-center">
+                            <div class="rating">
+                                <input v-model="tarnidHotell" id="star5" name="star" type="radio" value="5"
+                                    class="radio-btn hide" />
+                                <label for="star5">☆</label>
+                                <input v-model="tarnidHotell" id="star4" name="star" type="radio" value="4"
+                                    class="radio-btn hide" />
+                                <label for="star4">☆</label>
+                                <input v-model="tarnidHotell" id="star3" name="star" type="radio" value="3"
+                                    class="radio-btn hide" />
+                                <label for="star3">☆</label>
+                                <input v-model="tarnidHotell" id="star2" name="star" type="radio" value="2"
+                                    class="radio-btn hide" />
+                                <label for="star2">☆</label>
+                                <input v-model="tarnidHotell" id="star1" name="star" type="radio" value="1"
+                                    class="radio-btn hide" />
+                                <label for="star1">☆</label>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -91,24 +95,31 @@ export default {
                             <label for="teenusedHotell" class="inp">
                                 <input type="text" id="teenusedHotell" v-model="teenusedHotell" placeholder="&nbsp;"
                                     required>
-                                <span class="label">Hotellis pakutavad teenused</span>
+                                <span class="label">Hotelli kirjeldus</span>
                             </label>
                         </div>
                         <div class="py-2">
                             <label for="muuHotell" class="inp">
-                                <input type="text" id="muuHotell" v-model="muuHotell" placeholder="&nbsp;" required>
+                                <input type="text" id="muuHotell" v-model="muuHotell" placeholder="&nbsp;">
                                 <span class="label">Muud teenused</span>
                             </label>
                         </div>
                         <div class="pt-2">
-                            <input type="file" accept="image/png, image/jpeg" @change="onSelect" ref="file"
-                                class="input-file" id="piltHotell" onchange="loadFile(event)">
-                            <label tabindex="0" for="piltHotell" class="input-file-trigger">Lae ülesse pilt
-                                hotellist</label>
+                            <form id="piltForm" action="http://192.168.16.94:5000/upload" method="POST"
+                                enctype="multipart/form-data">
+                                <input type="file" name="image" accept="image/png, image/jpeg" class="input-file"
+                                    id="piltHotell">
+                                <label tabindex="0" for="piltHotell" class="input-file-trigger">Lae ülesse pilt
+                                    hotellist</label>
+                            </form>
                         </div>
                         <div class="pt-4 justify-content-center text-center">
                             <img class="image250" id="output" />
                         </div>
+                    </div>
+                    <div class="card-footer text-center align-bottom">
+                        <button id="book-btn" @click="insertHotel" form="piltForm" class="sub-button btn"><strong>Lisa
+                                oma hotell</strong></button>
                     </div>
                 </form>
             </div>
@@ -121,149 +132,9 @@ export default {
     </div>
 </template>
 
-<style>
-* {
-    box-sizing: border-box;
-}
+<style src="../css/addHotel.css">
 
-body {
-    height: 100vh;
-    display: grid;
-    font-family: Roboto;
-    -webkit-text-size-adjust: 100%;
-    -webkit-font-smoothing: antialiased;
-}
+</style>
+<style src="../css/multiselect.css">
 
-.addhotel-card {
-    width: 68.2rem;
-    background-color: #d9d9d9 !important;
-    border: none !important;
-    border-radius: 20px !important;
-}
-
-.inp {
-    position: relative;
-    margin: auto;
-    width: 100%;
-    border-radius: 10px;
-    overflow: hidden;
-    background-color: #fff;
-}
-
-.inp .label {
-    position: absolute;
-    top: 20px;
-    left: 12px;
-    font-size: 16px;
-    color: rgba(0, 0, 0, 0.5);
-    font-weight: 500;
-    transform-origin: 0 0;
-    transform: translate3d(0, 0, 0);
-    transition: all 0.2s ease;
-    pointer-events: none;
-}
-
-.inp input {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    border: 0;
-    font-family: inherit;
-    padding: 8px 12px 8px 12px;
-    height: 56px;
-    font-size: 16px;
-    font-weight: 400;
-    background: rgba(0, 0, 0, 0.02);
-    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
-    color: #000;
-    transition: all 0.15s ease;
-}
-
-.inp input:hover {
-    background: rgba(0, 0, 0, 0.04);
-    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.5);
-}
-
-.inp input:not(:placeholder-shown)+.label {
-    color: rgba(0, 0, 0, 0.5);
-    transform: translate3d(0, -12px, 0) scale(0.75);
-}
-
-.inp input:focus {
-    background: rgba(0, 0, 0, 0.05);
-    outline: none;
-    box-shadow: inset 0 -2px 0 #c94ef2;
-}
-
-.inp input:focus+.label {
-    color: #c94ef2;
-    transform: translate3d(0, -12px, 0) scale(0.75);
-}
-
-.inp input:focus+.label+.focus-bg {
-    transform: scaleX(1);
-    transition: all 0.1s ease;
-}
-
-.image250 {
-    display: inline-block;
-    object-fit: cover;
-    width: 100%;
-    max-width: auto;
-    height: 100%;
-    max-height: 30vh;
-}
-
-.js .input-file-trigger {
-    display: block;
-    padding: 16px 15px;
-    background: #6f4af0;
-    color: #fff;
-    font-size: 1em;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.js .input-file {
-    position: absolute;
-    opacity: 0;
-    padding: 13px;
-    cursor: pointer;
-}
-
-.js .input-file:hover+.input-file-trigger,
-.js .input-file:focus+.input-file-trigger,
-.js .input-file-trigger:hover,
-.js .input-file-trigger:focus {
-    background: #947af1;
-    color: #fff;
-}
-
-.card-footer {
-    background-color: transparent !important;
-    border: none !important;
-    padding: 16px !important;
-}
-
-.sub-button {
-    display: block;
-    width: 20%;
-    color: #fff !important;
-    background: -webkit-linear-gradient(right, #6f4af0, #c94ef2) !important;
-    border: -webkit-linear-gradient(right, #6f4af0, #c94ef2) !important;
-    border-radius: 10px !important;
-    padding: 12px 28px !important;
-    font-size: 18px !important;
-    cursor: pointer;
-    text-align: center;
-}
-
-.sub-button:hover {
-    background: #947af1 !important;
-    border: #947af1 1px solid !important;
-}
-
-input[type="file"]::-webkit-file-upload-button {
-    cursor: pointer;
-}
 </style>

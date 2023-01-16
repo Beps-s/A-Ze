@@ -13,7 +13,7 @@ app.component("FontAwesomeIcon", FontAwesomeIcon)
 app.use(router)
 
 const store = createStore({
-  state () {
+  state() {
     return {
       loggedIn: false
     }
@@ -24,6 +24,10 @@ const store = createStore({
     }
   }
 })
+
+document.querySelector("html").classList.add('js');
+var fileInput = document.querySelector(".input-file");
+var button = document.querySelector(".input-file-trigger");
 
 app.use(store)
 

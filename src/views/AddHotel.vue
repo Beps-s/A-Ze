@@ -2,13 +2,26 @@
 import VueMultiselect from 'vue-multiselect';
 export default {
     components: { VueMultiselect },
+    mounted() {
+        function initAutocomplete() {
+            var address = document.getElementById('aadressHotell');
+            var autocomplete = new google.maps.places.Autocomplete(address);
+        }
+        initAutocomplete();
+    },
     data() {
         return {
+            loadFile: function (event) {
+                var image = document.getElementById('output');
+                image.src = URL.createObjectURL(event.target.files[0]);
+                image.style.border = "1px solid #858282";
+                image.style.borderRadius = "5px";
+            },
             nimiHotell: '',
             teenusedHotell: '',
             kirjeldusHotell: '',
             muuHotell: '',
-            aadressHotell: '',
+            tarnidHotell: '',
             sessionID: localStorage.getItem('SessionID'),
             selected: [],
             options: ['WC', 'Dušš', 'Hommikusöök', '1', '2', '3', '4', '5']
@@ -26,7 +39,7 @@ export default {
                     Nimi: this.nimiHotell,
                     Tarnid: this.tarnidHotell,
                     Kirjeldus: this.kirjeldusHotell,
-                    Aadress: this.aadressHotell,
+                    Aadress: document.getElementById('aadressHotell').value,
                     Hotelli_teenused: this.selected,
                     Muud_teenused: this.muuHotell,
                     Pilt: piltHotell.files[0].name,
@@ -36,7 +49,7 @@ export default {
             await fetch('http://192.168.16.94:5000/hotels', insertHotelRequest)
                 .then(response => response.json())
                 .then(data => { (console.log(data)) })
-        }
+        },
     }
 }
 </script>
@@ -64,8 +77,8 @@ export default {
                         </div>
                         <div class="py-3">
                             <label for="aadressHotell" class="inp">
-                                <input name="aadressHotell" id="aadressHotell" v-model="aadressHotell" required
-                                    autocomplete="off" placeholder="&nbsp;">
+                                <input name="aadressHotell" id="aadressHotell" autocomplete="off" placeholder="&nbsp;"
+                                    required>
                                 <span class="label">Aadress</span>
                             </label>
                         </div>
@@ -107,7 +120,7 @@ export default {
                             <form id="piltForm" action="http://192.168.16.94:5000/upload" method="POST"
                                 enctype="multipart/form-data">
                                 <input type="file" name="image" accept="image/png, image/jpeg" class="input-file"
-                                    id="piltHotell">
+                                    id="piltHotell" @change="loadFile">
                                 <label tabindex="0" for="piltHotell" class="input-file-trigger">Lae ülesse pilt
                                     hotellist</label>
                             </form>

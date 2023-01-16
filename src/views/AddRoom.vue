@@ -28,7 +28,7 @@ export default {
                                 </VueMultiselect>
                             </div>
                         </div>
-                        <div class="py-2">
+                        <div class="pt-3">
                             <label for="voodikohadRuum" class="inp">
                                 <input type="number" id="voodikohadRuum" min="1" pattern="[0-9]"
                                     onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
@@ -36,9 +36,9 @@ export default {
                                 <span class="label">Voodikohad</span>
                             </label>
                         </div>
-                        <div class="py-2">
+                        <div class="pt-2">
                             <label for="hindRuum" class="inp">
-                                <input type="number" id="hindRuum" onkeypress="return event.charCode != 45"
+                                <input type="number" id="hindRuum" min="0"  onkeypress="return event.charCode != 45"
                                     autocomplete="off" placeholder="&nbsp;" required>
                                 <span class="label">Hind</span>
                             </label>
@@ -52,7 +52,7 @@ export default {
                                 </VueMultiselect>
                             </div>
                         </div>
-                        <div class="py-2">
+                        <div class="pt-3">
                             <label for="lisavoodiRuum" class="inp">
                                 <input type="number" id="lisavoodiRuum" min="0" pattern="[0-9]"
                                     onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
@@ -60,7 +60,7 @@ export default {
                                 <span class="label">Lisa voodikohad</span>
                             </label>
                         </div>
-                        <div class="py-2">
+                        <div class="pt-2">
                             <label for="tubadearvRuum" class="inp">
                                 <input type="number" id="lisavoodiRuum" min="1" pattern="[0-9]"
                                     onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"

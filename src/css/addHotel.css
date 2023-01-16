@@ -28,10 +28,10 @@ body {
 
 .inp .label {
     position: absolute;
-    top: 20px;
+    top: 25px;
     left: 12px;
     font-size: 16px;
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(53, 53, 53, 0.5);
     font-weight: 500;
     transform-origin: 0 0;
     transform: translate3d(0, 0, 0);
@@ -46,7 +46,7 @@ body {
     border: 0;
     font-family: inherit;
     padding: 16px 12px 0 12px;
-    height: 56px;
+    height: 66px;
     font-size: 16px;
     font-weight: 400;
     background: rgba(0, 0, 0, 0.02);
@@ -87,7 +87,8 @@ body {
 
 .js .input-file-trigger {
     display: block;
-    padding: 16px 15px;
+    padding: 22px 15px;
+    height: 66px;
     background: #947af1;
     color: #fff;
     font-size: 1em;

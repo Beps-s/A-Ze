@@ -24,11 +24,10 @@ export default {
             tarnidHotell: '',
             sessionID: localStorage.getItem('SessionID'),
             selected: [],
-            options: ['WC', 'Dušš', 'Hommikusöök', '1', '2', '3', '4', '5']
+            options: ['WC', 'Dušš', 'Hommikusöök', '4', '5']
         }
     },
     methods: {
-
         insertHotel: async function (e) {
             const insertHotelRequest = {
                 method: "POST",
@@ -75,7 +74,7 @@ export default {
                                 </VueMultiselect>
                             </div>
                         </div>
-                        <div class="py-3">
+                        <div class="py-4">
                             <label for="aadressHotell" class="inp">
                                 <input name="aadressHotell" id="aadressHotell" autocomplete="off" placeholder="&nbsp;"
                                     required>

@@ -4,7 +4,7 @@ import Home from "../views/HomePage.vue";
 import AddHotel from "../views/AddHotel.vue";
 import AddRoom from "../views/AddRoom.vue";
 import HotelPage from "../views/HotelPage.vue";
-import MyBookings from "../views/MyBookingsPage.vue";
+import MyBookings from "../views/MyBookings.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

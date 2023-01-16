@@ -1,64 +1,79 @@
+<script>
+import VueMultiselect from 'vue-multiselect';
+
+export default {
+    components: { VueMultiselect },
+    data() {
+        return {
+            sessionID: localStorage.getItem('SessionID'),
+            selected: [],
+            options: ['Single room', 'Double room', 'Triple room', 'Twin room', 'Suite'],
+            selected2: [],
+            options2: ['WC', 'Dušš', 'A/C', '4', '5'],
+        }
+    },
+}
+</script>
+
 <template>
     <div class="d-flex justify-content-center mt-3">
         <div class="card addroom-card">
-            <h1 class="text-center pt-4"><strong>Lisa oma hotelli ruumi detailid.</strong></h1>
+            <h1 class="text-center pt-4"><strong>Lisa oma hotelli tube</strong></h1>
             <div class="card-body">
                 <form id="addRoomForm" class="row g-4">
                     <div class="col-md-6">
                         <div class="py-2">
-                            <label for="liikRuum" class="inp">
-                                <select class="form-select room-dropdown inp">
-                                    <option hidden>Liik</option>
-                                    <option value="Single Room">Üheinimesetuba</option>
-                                    <option value="Double Room">Kaheinimesetuba (Double)</option>
-                                    <option value="Twin Room">Kaheinimesetuba (Twin)</option>
-                                    <option value="Suite">Sviit</option>
-                                    <option value="President Suite">Presidendi sviit</option>
-                                </select>
+                            <div>
+                                <VueMultiselect v-model="selected" :options="options" placeholder="Toa liik">
+                                </VueMultiselect>
+                            </div>
+                        </div>
+                        <div class="py-2">
+                            <label for="voodikohadRuum" class="inp">
+                                <input type="number" id="voodikohadRuum" min="1" pattern="[0-9]"
+                                    onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                    step="1" autocomplete="off" placeholder="&nbsp;" required>
+                                <span class="label">Voodikohad</span>
                             </label>
                         </div>
                         <div class="py-2">
                             <label for="hindRuum" class="inp">
-                                <input type="number" name="hindRuum" id="hindRuum" required autocomplete="off"
-                                    placeholder="&nbsp;">
+                                <input type="number" id="hindRuum" onkeypress="return event.charCode != 45"
+                                    autocomplete="off" placeholder="&nbsp;" required>
                                 <span class="label">Hind</span>
-                            </label>
-                        </div>
-                        <div class="py-2">
-                            <label for="mugavusedRuum" class="inp">
-                                <select class="form-select room-dropdown inp">
-                                    <option hidden>Mugavused</option>
-                                    <option value="Single Room">Üheinimesetuba</option>
-                                    <option value="Double Room">Kaheinimesetuba (Double)</option>
-                                    <option value="Twin Room">Kaheinimesetuba (Twin)</option>
-                                    <option value="Suite">Sviit</option>
-                                    <option value="President Suite">Presidendi sviit</option>
-                                </select>
                             </label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="py-2">
-                            <label for="voodikohadRuum" class="inp">
-                                <input type="number" name="voodikohadRuum" id="voodikohadRuum" required
-                                    autocomplete="off" placeholder="&nbsp;">
-                                <span class="label">Voodikohad</span>
-                            </label>
+                            <div>
+                                <VueMultiselect v-model="selected2" :options="options2" :multiple="true"
+                                    :close-on-select="true" placeholder="Toa mugavused">
+                                </VueMultiselect>
+                            </div>
                         </div>
                         <div class="py-2">
                             <label for="lisavoodiRuum" class="inp">
-                                <input type="number" name="lisavoodiRuum" id="lisavoodiRuum" required autocomplete="off"
-                                    placeholder="&nbsp;">
+                                <input type="number" id="lisavoodiRuum" min="0" pattern="[0-9]"
+                                    onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                    step="1" autocomplete="off" placeholder="&nbsp;">
                                 <span class="label">Lisa voodikohad</span>
                             </label>
                         </div>
                         <div class="py-2">
-                            <button id="room-btn" type="submit" form="addRoomForm" class="sub-button btn">
-                                <strong>Lisa oma hotelli ruum</strong>
-                            </button>
+                            <label for="tubadearvRuum" class="inp">
+                                <input type="number" id="lisavoodiRuum" min="1" pattern="[0-9]"
+                                    onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                    step="1" autocomplete="off" placeholder="&nbsp;" required>
+                                <span class="label">Seda liiki tubade arv</span>
+                            </label>
                         </div>
                     </div>
                 </form>
+            </div>
+            <div class="card-footer text-center align-bottom">
+                <button type="submit" form="addRoomForm" id="room-btn"
+                    class="btn btn-outline-primary"><strong>Lisa valitud liiki tuba</strong></button>
             </div>
         </div>
     </div>

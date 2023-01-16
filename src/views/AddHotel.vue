@@ -60,7 +60,6 @@ export default {
                                 <VueMultiselect v-model="selected" :options="options" :multiple="true"
                                     :close-on-select="true" placeholder="Hotellis pakutavad teenused">
                                 </VueMultiselect>
-                                <span class="focus-bg"></span>
                             </div>
                         </div>
                         <div class="py-3">
@@ -117,15 +116,11 @@ export default {
                             <img class="image250" id="output" />
                         </div>
                     </div>
-                    <div class="card-footer text-center align-bottom">
-                        <button id="book-btn" @click="insertHotel" form="piltForm" class="sub-button btn"><strong>Lisa
-                                oma hotell</strong></button>
-                    </div>
                 </form>
             </div>
             <div class="card-footer text-center align-bottom">
                 <button @click="insertHotel" id="book-btn" type="submit" form="addForm"
-                    class="sub-button btn"><strong>Lisa oma
+                    class="btn btn-outline-primary"><strong>Lisa oma
                         hotell</strong></button>
             </div>
         </div>

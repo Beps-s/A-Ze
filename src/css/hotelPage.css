@@ -69,6 +69,11 @@ body {
     border-radius: 10px;
 }
 
+#room-btn {
+    font-size: x-large;
+    border-radius: 10px;
+}
+
 .btn-outline-primary {
     --bs-btn-color: #6f4af0 !important;
     --bs-btn-border-color: #6f4af0 !important;

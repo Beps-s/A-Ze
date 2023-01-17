@@ -89,11 +89,16 @@ export default {
                     <!-- Prices -->
                     <div id="tab-prices" class="py-4">
                         <div class="d-flex align-items-center justify-content-between py-5">
-                            <div class="col-4">
+                            <div class="col-6">
                                 <select class="form-select">
                                     <option hidden>Majutuse tüüp</option>
                                     <option v-for="room in rooms" :value="room.Toa_ID">{{ room.Liik }}</option>
                                 </select>
+                                <div class="d-flex align-items-center pt-2">
+                                    <input id="startDate" type="date" class="form-control" />
+                                    <p class="m-0 px-2" style="font-size: large;">kuni</p>
+                                    <input id="endDate" type="date" class="form-control" />
+                                </div>
                             </div>
                             <div class="col-4 py-2">
                                 <div class="row">
@@ -131,7 +136,7 @@ export default {
                     </div>
                     <!-- Book button -->
                     <div id="book" class="d-flex justify-content-center py-5">
-                        <button id="book-btn" type="button" class="btn btn-outline-primary py-2 px-4">Broneeri</button>
+                        <button id="book-btn" type="button" class="btn-primary py-2 px-4">Broneeri</button>
                     </div>
                 </div>
             </div>

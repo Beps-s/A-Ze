@@ -25,34 +25,41 @@
 .multiselect__single {
     position: relative;
     display: inline-block;
-    min-height: 20px;
-    line-height: 20px;
+    font-size: 16px;
     border: none;
-    border-radius: 5px;
     background: #FAFAFA;
-    width: 100%;
     transition: border .1s ease;
     box-sizing: border-box;
-    vertical-align: top
+    top: 25%;
+}
+
+.multiselect__input,
+.multiselect__single::after {
+    position: relative;
+    display: inline-block;
+    font-size: 16px;
+    border: none;
+    background: #FAFAFA;
+    transition: border .1s ease;
+    box-sizing: border-box;
+    top: 0px;
 }
 
 .multiselect__input::placeholder {
+    top: 25%;
     color: #c94ef2;
-}
-
-.multiselect__::placeholder {
-    color: #c94ef2;
+    font-size: 14px;
 }
 
 .multiselect__input:hover,
 .multiselect__single:hover {
-    border-color: #cfcfcf
+    border-color: #cfcfcf;
 }
 
 .multiselect__input:focus,
 .multiselect__single:focus {
     border-color: #a8a8a8;
-    outline: none
+    outline: none;
 }
 
 .multiselect__tags {
@@ -79,7 +86,7 @@
     white-space: nowrap;
     overflow: hidden;
     max-width: 100%;
-    text-overflow: ellipsis
+    text-overflow: ellipsis;
 }
 
 .multiselect__tag-icon {
@@ -154,7 +161,7 @@
 }
 
 .multiselect--active .multiselect__placeholder {
-    display: none
+    display: none;
 }
 
 .multiselect__content-wrapper {
@@ -217,7 +224,7 @@
     position: absolute;
     line-height: 40px;
     padding-right: 12px;
-    padding-left: 30px;
+    padding-left: 0px;
     font-size: 13px
 }
 
@@ -266,20 +273,6 @@
     color: #a6a6a6 !important;
     cursor: text;
     pointer-events: none
-}
-
-.multiselect__option--group {
-    background: #ededed;
-    color: #35495e
-}
-
-.multiselect__option--group.multiselect__option--highlight {
-    background: #35495e;
-    color: #fff
-}
-
-.multiselect__option--group.multiselect__option--highlight:after {
-    background: #35495e
 }
 
 .multiselect__option--disabled.multiselect__option--highlight {

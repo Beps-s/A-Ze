@@ -100,6 +100,7 @@ export default {
           } else {
             localStorage.removeItem('SessionID')
             this.$store.commit('setLoggedIn', false)
+            this.sessionID = null
           }
         })
     }
@@ -118,11 +119,11 @@ export default {
           <input class="form-control" placeholder="Otsi majutust">
         </div>
         <div class="col-3 mx-auto">
-          <RouterLink to="/addHotel" v-if="loggedIn && sessionID"><a class="mx-4 header-link"><font-awesome-icon
+          <RouterLink to="/addHotel" v-if="loggedIn || sessionID"><a class="mx-4 header-link"><font-awesome-icon
                 icon="fa-solid fa-plus" /> Lisa majutus</a></RouterLink>
           <a v-else class="mx-4 header-link" data-bs-toggle="modal" data-bs-target="#registerModal"><font-awesome-icon
               icon="fa-solid fa-user-plus" /> Registreeri</a>
-          <a v-if="loggedIn && sessionID" class="mx-4 header-link dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+          <a v-if="loggedIn || sessionID" class="mx-4 header-link dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown"
             aria-expanded="false"><font-awesome-icon icon="fa-solid fa-user" /> Minu konto</a>
           <a v-else class="mx-4 header-link" data-bs-toggle="modal" data-bs-target="#loginModal"><font-awesome-icon
               icon="fa-solid fa-right-to-bracket" /> Logi sisse</a>
@@ -130,7 +131,7 @@ export default {
             <li><a class="dropdown-item" href="#">Minu andmed</a></li>
             <RouterLink to="/myBookings"><li><a class="dropdown-item" href="#">Minu broneeringud</a></li></RouterLink>
             <li>
-              <li><a class="dropdown-item" href="#">Minu hotellid</a></li>
+              <RouterLink to="/myhotels"><li><a class="dropdown-item" href="#">Minu hotellid</a></li></RouterLink>
               <hr class="dropdown-divider">
             </li>
             <li><a class="dropdown-item" @click="logout">Logi välja</a></li>
@@ -166,7 +167,7 @@ export default {
                 <h3>{{ message }}</h3>
                 <div class="field btn">
                   <div class="btn-layer"></div>
-                  <input type="submit" value="Logi sisse" data-bs-dismiss="modal">
+                  <input type="submit" value="Logi sisse">
                 </div>
                 <div class="signup-link">
                   Pole kasutajat? <a data-bs-toggle="modal" data-bs-target="#registerModal">Registreeri siin</a>
@@ -215,7 +216,7 @@ export default {
                 <h3>{{ message }}</h3>
                 <div class="field btn">
                   <div class="btn-layer"></div>
-                  <input type="submit" value="Loo konto" data-bs-dismiss="modal">
+                  <input type="submit" value="Loo konto">
                 </div>
                 <div class="signup-link">
                   Kasutaja juba olemas? <a data-bs-toggle="modal" data-bs-target="#loginModal">Logi sisse</a>

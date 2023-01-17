@@ -5,6 +5,8 @@ export default {
     components: { VueMultiselect },
     data() {
         return {
+            formVisible: true,
+            message: '',
             sessionID: localStorage.getItem('SessionID'),
             liikTuba: [],
             options: ['Single room', 'Double room', 'Triple room', 'Twin room', 'Suite'],
@@ -18,7 +20,6 @@ export default {
     },
     methods: {
         insertRoom: async function() {
-            console.log(this.tubadeArv)
             const insertRoomRequest = {
                 method: "POST",
                 headers: {
@@ -36,14 +37,28 @@ export default {
             }
             await fetch('http://192.168.16.94:5000/rooms', insertRoomRequest)
             .then(response => response.json())
-                .then(data => {console.log(data)})
+                .then(data => {
+                    if(data.success == true){
+                        this.formVisible  = false
+                        this.message = ''
+                    }if(data.error){
+                        this.message = 'Midagi läks valesti'
+                    }
+                })
+        },
+        showForm: function(){
+            this.formVisible = true
         }
     },
 }
 </script>
 
 <template>
-    <div class="d-flex justify-content-center mt-3">
+    <div v-if="!formVisible" class="card-footer text-center align-bottom">
+        <h1 class="text-center pt-4 pb-4"><strong>Edukalt lisatud</strong></h1>
+        <button @click="showForm" id="room-btn" class="btn btn-outline-primary"><strong>Lisa veel tube</strong></button>
+    </div>
+    <div v-if="formVisible" class="d-flex justify-content-center mt-3">
         <div class="card addroom-card">
             <h1 class="text-center pt-4"><strong>Lisa oma hotellile tube</strong></h1>
             <div class="card-body">
@@ -101,6 +116,7 @@ export default {
             <div class="card-footer text-center align-bottom">
                 <button @click="insertRoom"  id="room-btn" class="btn btn-outline-primary"><strong>Lisa valitud liiki tuba</strong></button>
             </div>
+            <h1 class="text-center pt-4 pb-4"><strong>{{ message }}</strong></h1>
         </div>
     </div>
 </template>

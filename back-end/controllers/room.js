@@ -41,6 +41,7 @@ export const createRoom = (req, res) => {
                         }
                     })
                 }
+                res.send({success: true})
             }catch(err){
                 res.send(err)
             }

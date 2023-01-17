@@ -118,11 +118,11 @@ export default {
           <input class="form-control" placeholder="Otsi majutust">
         </div>
         <div class="col-3 mx-auto">
-          <RouterLink to="/addHotel" v-if="loggedIn && sessionID"><a class="mx-4 header-link"><font-awesome-icon
+          <RouterLink to="/addHotel" v-if="loggedIn || sessionID"><a class="mx-4 header-link"><font-awesome-icon
                 icon="fa-solid fa-plus" /> Lisa majutus</a></RouterLink>
           <a v-else class="mx-4 header-link" data-bs-toggle="modal" data-bs-target="#registerModal"><font-awesome-icon
               icon="fa-solid fa-user-plus" /> Registreeri</a>
-          <a v-if="loggedIn && sessionID" class="mx-4 header-link dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+          <a v-if="loggedIn || sessionID" class="mx-4 header-link dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown"
             aria-expanded="false"><font-awesome-icon icon="fa-solid fa-user" /> Minu konto</a>
           <a v-else class="mx-4 header-link" data-bs-toggle="modal" data-bs-target="#loginModal"><font-awesome-icon
               icon="fa-solid fa-right-to-bracket" /> Logi sisse</a>

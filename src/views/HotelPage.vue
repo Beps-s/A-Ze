@@ -29,10 +29,12 @@ export default {
     computed: {
         selectedRoom: {
             get() {
+                console.log(this.selectedRoom)
                 return this.selectedRoom
             },
             set(newRoom) {
                 this.selectedRoom = newRoom
+                console.log(this.selectedRoom)
             }
         }
     },
@@ -92,7 +94,7 @@ export default {
                             <div class="col-6">
                                 <select class="form-select">
                                     <option hidden>Majutuse tüüp</option>
-                                    <option v-for="room in rooms" :value="room.Toa_ID">{{ room.Liik }}</option>
+                                    <option v-for="room in rooms" :value="room.Toa_ID" @change="selectedRoom.get()">{{ room.Liik }}</option>
                                 </select>
                                 <div class="d-flex align-items-center pt-2">
                                     <input id="startDate" type="date" class="form-control" />
@@ -102,7 +104,7 @@ export default {
                             </div>
                             <div class="col-4 py-2">
                                 <div class="row">
-                                    <h5 class="col text-end my-1">Voodikohad:</h5>
+                                    <h5 class="col text-end my-1">Voodikohad: </h5>
                                     <h5 id="room-beds" class="col-2 p-0 my-1">2</h5>
                                 </div>
                                 <div class="row">
@@ -111,27 +113,20 @@ export default {
                                 </div>
                             </div>
                         </div>
-                        <div class="py-4">
+                        <div class="py-4" v-if="this.seletcedRoom">
                             <h3>Toa mugavused:</h3>
                             <p id="room-facilities" style="font-size: large;">WC, Vann, Dušš, TV, Konditsioneer</p>
-                            <h3>Lisa valikud:</h3>
-                            <p id="room-options" style="font-size: large;">Hommikusöök, Saun</p>
                         </div>
                         <div class="d-flex justify-content-end pb-4">
                             <h2 style="font-weight: 600;">Hind:</h2>
-                            <h2 id="room-price" style="font-weight: 600;">{{ hotel.Hind }}€</h2>
+                            <h2 id="room-price" style="font-weight: 600;">{{ this.selectedRoom.Hind }}€</h2>
                         </div>
                     </div>
                     <!-- Facilities -->
                     <div id="tab-facilities" class="py-4">
                         <div class="py-5">
-                            <h3>Hotelli mugavused:</h3>
-                            <p id="hotel-facilities" class="pb-4 m-0" style="font-size: large;">Wi-fi, Hommikusöök,
-                                Bassein,
-                                Saun, Restoran,
-                                Konditsioneer,
-                                Lift,
-                                Toateenindus</p>
+                            <h3>Hotelli teenused:</h3>
+                            <p id="hotel-facilities" class="pb-4 m-0" style="font-size: large;">{{ hotel.Hotelli_teenused }}</p>
                         </div>
                     </div>
                     <!-- Book button -->

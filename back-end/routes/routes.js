@@ -2,7 +2,7 @@
 import express from "express";
  
 // import function from controller
-import { showHotels, showHotelByName, createHotel, deleteHotel, showHotelById } from "../controllers/hotel.js";
+import { showHotels, showHotelByName, createHotel, deleteHotel, showHotelById, showHotelsByOwnerId } from "../controllers/hotel.js";
 import { createRoom, showRoomsByHotelId } from "../controllers/room.js";
 import { createUser, loginUser, logoutUser } from "../controllers/user.js";
 import { uploadImage } from '../controllers/images.js'
@@ -34,12 +34,16 @@ router.post('/rooms', createRoom);
 
 // Get rooms by hotel ID
 router.get('/rooms/:id', showRoomsByHotelId)
+
+// Get rooms for owner
+router.get('/owner', showHotelsByOwnerId)
  
 // Add user
 router.post('/users', createUser);
 
 // Login
 router.post('/sessions', loginUser);
+
 
 // Log out
 router.delete('/sessions', logoutUser)

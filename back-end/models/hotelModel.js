@@ -2,7 +2,7 @@ import db from "../config/db.js";
  
 // Get All Hotels
 export const getHotels = (result) => {
-    db.query("SELECT h.*, t.Hind FROM hotell h inner join tuba t on h.Hotelli_ID=t.Hotelli_ID WHERE t.hind = (SELECT min(hind) FROM tuba WHERE Hotelli_ID = t.Hotelli_ID);", (err, results) => {             
+    db.query("SELECT h.*, t.Hind FROM hotell h inner join tuba t on h.Hotelli_ID=t.Hotelli_ID WHERE t.hind = (SELECT min(hind) FROM tuba WHERE Hotelli_ID = t.Hotelli_ID) GROUP BY h.Hotelli_ID, t.Hind;", (err, results) => {             
         if(err) {
             console.log(err);
             result(err, null);
@@ -34,6 +34,29 @@ export const getHotelById = (id, result) => {
         }
     });   
 }
+
+export const getHotelsByOwnerId = (id, result) => {
+    db.query(`SELECT * FROM hotell WHERE Omanik = ?`, [id], (err, results) => {
+        if(err) {
+            console.log(err);
+            result(err, null);
+        } else {
+            result(null, results);
+        }
+    })
+}
+
+export const getLatestHotelByOwnerId = (id, result) => {
+    db.query(`SELECT * FROM hotell WHERE Omanik = ? ORDER BY Hotelli_ID DESC LIMIT 1;`, [id], (err, results) => {
+        if(err) {
+            console.log(err);
+            result(err, null);
+        } else {
+            result(null, results);
+        }
+    })
+}
+
 
 // Add hotel
 export const insertHotel = (data, result) => {

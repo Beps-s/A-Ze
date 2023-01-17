@@ -48,7 +48,12 @@ export default {
             if (data.Error) {
               this.message = data.Error
             } else {
+              localStorage.setItem('SessionID', data.sessionID)
+              this.$store.commit('setLoggedIn', true)
               this.message = 'Konto edukalt loodud'
+              setTimeout(() => {
+                this.message = ''
+              }, 5000)
             }
           })
       }
@@ -71,6 +76,7 @@ export default {
           if (data.error) {
             this.message = data.error
           } else {
+            this.message = ''
             localStorage.setItem('SessionID', data.sessionID)
             this.$store.commit('setLoggedIn', true)
           }
@@ -92,7 +98,7 @@ export default {
           if (data.error) {
             this.message = data.error
           } else {
-            localStorage.removeItem('SessionID', data.sessionID)
+            localStorage.removeItem('SessionID')
             this.$store.commit('setLoggedIn', false)
             this.sessionID = null
           }
@@ -127,7 +133,7 @@ export default {
               <li><a class="dropdown-item" href="#">Minu broneeringud</a></li>
             </RouterLink>
             <li>
-              <RouterLink to="/myHotels">
+              <RouterLink to="/myhotels">
             <li><a class="dropdown-item" href="#">Minu hotellid</a></li>
             </RouterLink>
             <hr class="dropdown-divider">
@@ -165,7 +171,7 @@ export default {
                 <h3>{{ message }}</h3>
                 <div class="field btn">
                   <div class="btn-layer"></div>
-                  <input type="submit" value="Logi sisse" data-bs-dismiss="modal">
+                  <input type="submit" value="Logi sisse">
                 </div>
                 <div class="signup-link">
                   Pole kasutajat? <a data-bs-toggle="modal" data-bs-target="#registerModal">Registreeri siin</a>
@@ -214,7 +220,7 @@ export default {
                 <h3>{{ message }}</h3>
                 <div class="field btn">
                   <div class="btn-layer"></div>
-                  <input type="submit" value="Loo konto" data-bs-dismiss="modal">
+                  <input type="submit" value="Loo konto">
                 </div>
                 <div class="signup-link">
                   Kasutaja juba olemas? <a data-bs-toggle="modal" data-bs-target="#loginModal">Logi sisse</a>

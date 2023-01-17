@@ -125,6 +125,7 @@ export default {
             <li><a class="dropdown-item" href="#">Minu andmed</a></li>
             <RouterLink to="/myBookings"><li><a class="dropdown-item" href="#">Minu broneeringud</a></li></RouterLink>
             <li>
+              <li><a class="dropdown-item" href="#">Minu hotellid</a></li>
               <hr class="dropdown-divider">
             </li>
             <li><a class="dropdown-item" @click="logout">Logi välja</a></li>

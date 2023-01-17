@@ -17,6 +17,8 @@ export default {
                 image.style.border = "1px solid #858282";
                 image.style.borderRadius = "5px";
             },
+            hotelInserted: false,
+            message: '',
             nimiHotell: '',
             teenusedHotell: '',
             kirjeldusHotell: '',
@@ -24,7 +26,7 @@ export default {
             tarnidHotell: '',
             sessionID: localStorage.getItem('SessionID'),
             selected: [],
-            options: ['WC', 'Dušš', 'Hommikusöök', '4', '5']
+            options: ['Wi-Fi', 'Bassein', 'Hommikusook', 'Riiete pesu', 'Saun']
         }
     },
     methods: {
@@ -47,7 +49,14 @@ export default {
             }
             await fetch('http://192.168.16.94:5000/hotels', insertHotelRequest)
                 .then(response => response.json())
-                .then(data => { (console.log(data)) })
+                .then(data => { 
+                    if(data.error){
+                        this.message = "Midagi läks valesti"
+                    }else{
+                        this.message = "Hotell edukalt lisatud"
+                        this.hotelInserted = true
+                    }
+                })
         },
     }
 }
@@ -104,7 +113,7 @@ export default {
                     <div class="col-md-6">
                         <div class="py-2">
                             <label for="teenusedHotell" class="inp">
-                                <input type="text" id="teenusedHotell" v-model="teenusedHotell" placeholder="&nbsp;"
+                                <input type="text" id="teenusedHotell" v-model="kirjeldusHotell" placeholder="&nbsp;"
                                     required>
                                 <span class="label">Hotelli kirjeldus</span>
                             </label>
@@ -131,10 +140,11 @@ export default {
                 </form>
             </div>
             <div class="card-footer text-center align-bottom">
-                <button @click="insertHotel" id="book-btn" type="submit" form="addForm"
-                    class="btn btn-outline-primary"><strong>Lisa oma
-                        hotell</strong></button>
+                <h3>{{ this.message }}</h3>
+                <button @click="insertHotel" v-if="!hotelInserted" id="book-btn" type="submit" form="piltForm" class="btn btn-outline-primary"><strong>Lisa oma hotell</strong></button>
+                <RouterLink to="/addroom" v-if="hotelInserted"><h2 class="mx-4 header-link"> Lisa enda hotellile tube</h2></RouterLink>
             </div>
+            
         </div>
     </div>
 </template>

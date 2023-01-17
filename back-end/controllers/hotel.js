@@ -1,4 +1,4 @@
-import { getHotels, getHotelByName, insertHotel, deleteHotelById, getHotelById } from "../models/hotelModel.js";
+import { getHotels, getHotelByName, insertHotel, deleteHotelById, getHotelById, getHotelsByOwnerId } from "../models/hotelModel.js";
 import { sessions } from "./user.js";
  
 
@@ -23,6 +23,28 @@ export const showHotelById = (req, res) => {
     });
 }
 
+export const showHotelsByOwnerId = (req, res) => {
+    let id
+    sessions.forEach((element) => {
+        if (element.sessionID == req.headers.authorization){
+            id = element.userID
+            console.log(true)
+        }  
+    })
+    if(!id){
+            res.send({error: 'putsis'})
+    }
+
+    getHotelsByOwnerId(id, (err, results) => {
+    if (err){
+        res.send({error: 'putsis'}) 
+    }else{
+        res.json(results)
+    }
+    });
+    
+}
+
 export const showHotelByName = (req, res) => {
     let name = req.params.name
     name = name.slice(1)
@@ -40,6 +62,7 @@ export const showHotelByName = (req, res) => {
 
 export const createHotel = (req, res) => {
     let data = req.body;
+    data.Hotelli_teenused = data.Hotelli_teenused.toString()
     sessions.forEach((element) => {
         if (element.sessionID == data.Omanik){
             data.Omanik = element.userID
@@ -51,9 +74,9 @@ export const createHotel = (req, res) => {
     
     insertHotel(data, (err, results) => {
         if (err){
-            res.send(err);
+            res.send({error: 'putsis'});
         }else{
-            res.json(results);
+            res.json({success: true});
         }
     });
 }

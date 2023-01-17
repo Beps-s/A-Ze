@@ -6,10 +6,37 @@ export default {
     data() {
         return {
             sessionID: localStorage.getItem('SessionID'),
-            selected: [],
+            liikTuba: [],
             options: ['Single room', 'Double room', 'Triple room', 'Twin room', 'Suite'],
-            selected2: [],
-            options2: ['WC', 'Dušš', 'A/C', '4', '5'],
+            voodikohadTuba: '',
+            hindTuba: '',
+            mugavusedTuba: [],
+            options2: ['WC', 'Vann', 'Duss', 'Televiisor', 'A/C'],
+            lisaVoodikohadTuba: '',
+            tubadeArv: '',
+        }
+    },
+    methods: {
+        insertRoom: async function() {
+            console.log(this.tubadeArv)
+            const insertRoomRequest = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": localStorage.getItem('SessionID')
+                },
+                body: JSON.stringify({
+                    Hind: this.hindTuba,
+                    Liik: this.liikTuba,
+                    Voodikohad: this.voodikohadTuba,
+                    Lisa_voodikohad: this.lisaVoodikohadTuba,
+                    Mugavused: this.mugavusedTuba,
+                    Arv: this.tubadeArv
+                })
+            }
+            await fetch('http://192.168.16.94:5000/rooms', insertRoomRequest)
+            .then(response => response.json())
+                .then(data => {console.log(data)})
         }
     },
 }
@@ -18,19 +45,19 @@ export default {
 <template>
     <div class="d-flex justify-content-center mt-3">
         <div class="card addroom-card">
-            <h1 class="text-center pt-4"><strong>Lisa oma hotelli tube</strong></h1>
+            <h1 class="text-center pt-4"><strong>Lisa oma hotellile tube</strong></h1>
             <div class="card-body">
                 <form id="addRoomForm" class="row g-4">
                     <div class="col-md-6">
                         <div class="py-2">
                             <div>
-                                <VueMultiselect v-model="selected" :options="options" placeholder="Toa liik">
+                                <VueMultiselect v-model="liikTuba" :options="options" placeholder="Toa liik">
                                 </VueMultiselect>
                             </div>
                         </div>
                         <div class="pt-3">
                             <label for="voodikohadRuum" class="inp">
-                                <input type="number" id="voodikohadRuum" min="1" pattern="[0-9]"
+                                <input type="number" id="voodikohadRuum" v-model="voodikohadTuba" min="1" pattern="[0-9]"
                                     onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
                                     step="1" autocomplete="off" placeholder="&nbsp;" required>
                                 <span class="label">Voodikohad</span>
@@ -38,7 +65,7 @@ export default {
                         </div>
                         <div class="pt-2">
                             <label for="hindRuum" class="inp">
-                                <input type="number" id="hindRuum" min="0"  onkeypress="return event.charCode != 45"
+                                <input type="number" id="hindRuum" min="0" v-model="hindTuba" onkeypress="return event.charCode != 45"
                                     autocomplete="off" placeholder="&nbsp;" required>
                                 <span class="label">Hind</span>
                             </label>
@@ -47,14 +74,14 @@ export default {
                     <div class="col-md-6">
                         <div class="py-2">
                             <div>
-                                <VueMultiselect v-model="selected2" :options="options2" :multiple="true"
+                                <VueMultiselect v-model="mugavusedTuba" :options="options2" :multiple="true"
                                     :close-on-select="true" placeholder="Toa mugavused">
                                 </VueMultiselect>
                             </div>
                         </div>
                         <div class="pt-3">
                             <label for="lisavoodiRuum" class="inp">
-                                <input type="number" id="lisavoodiRuum" min="0" pattern="[0-9]"
+                                <input type="number" id="lisavoodiRuum" v-model="lisaVoodikohadTuba" min="0" pattern="[0-9]"
                                     onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
                                     step="1" autocomplete="off" placeholder="&nbsp;">
                                 <span class="label">Lisa voodikohad</span>
@@ -62,7 +89,7 @@ export default {
                         </div>
                         <div class="pt-2">
                             <label for="tubadearvRuum" class="inp">
-                                <input type="number" id="lisavoodiRuum" min="1" pattern="[0-9]"
+                                <input type="number" id="tubadeArv" v-model="tubadeArv" min="1" pattern="[0-9]"
                                     onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
                                     step="1" autocomplete="off" placeholder="&nbsp;" required>
                                 <span class="label">Seda liiki tubade arv</span>
@@ -72,8 +99,7 @@ export default {
                 </form>
             </div>
             <div class="card-footer text-center align-bottom">
-                <button type="submit" form="addRoomForm" id="room-btn"
-                    class="btn btn-outline-primary"><strong>Lisa valitud liiki tuba</strong></button>
+                <button @click="insertRoom"  id="room-btn" class="btn btn-outline-primary"><strong>Lisa valitud liiki tuba</strong></button>
             </div>
         </div>
     </div>

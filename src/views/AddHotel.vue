@@ -132,8 +132,7 @@ export default {
             </div>
             <div class="card-footer text-center align-bottom">
                 <button @click="insertHotel" id="book-btn" type="submit" form="addForm"
-                    class="btn btn-outline-primary"><strong>Lisa oma
-                        hotell</strong></button>
+                    class="btn-primary py-2 px-4"><strong>Lisa oma hotell</strong></button>
             </div>
         </div>
     </div>

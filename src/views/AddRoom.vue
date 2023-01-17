@@ -38,7 +38,7 @@ export default {
                         </div>
                         <div class="pt-2">
                             <label for="hindRuum" class="inp">
-                                <input type="number" id="hindRuum" min="0"  onkeypress="return event.charCode != 45"
+                                <input type="number" id="hindRuum" min="0" onkeypress="return event.charCode != 45"
                                     autocomplete="off" placeholder="&nbsp;" required>
                                 <span class="label">Hind</span>
                             </label>
@@ -72,8 +72,9 @@ export default {
                 </form>
             </div>
             <div class="card-footer text-center align-bottom">
-                <button type="submit" form="addRoomForm" id="room-btn"
-                    class="btn btn-outline-primary"><strong>Lisa valitud liiki tuba</strong></button>
+                <button type="submit" form="addRoomForm" id="room-btn" class="btn-primary py-2 px-4"><strong>Lisa
+                        valitud
+                        liiki tuba</strong></button>
             </div>
         </div>
     </div>

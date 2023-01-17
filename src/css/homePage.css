@@ -6,6 +6,10 @@ body {
   background-color: #f4f3ef !important;
 }
 
+.logo {
+  height: 4em;
+}
+
 .btn-primary {
   background: -webkit-linear-gradient(right, #6f4af0, #c94ef2) !important;
 }

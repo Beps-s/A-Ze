@@ -19,12 +19,12 @@ export default {
         <div class="card home-card h-100">
             <RouterLink v-bind:to="'/hotel/' + hotel_id" class="card-link">
                 <img v-bind:src="'http://192.168.16.94:5000/' + pilt" class="card-img-top">
-                <div class="card-body d-flex justify-content-between align-items-center p-2">
+                <div class="card-body d-flex justify-content-between align-items-top p-2">
                     <div>
                         <h5 id="hotel-name" class="card-title m-0">{{ nimi }}</h5>
-                        <p class="m-0">{{ aadress }}</p>
+                        <p class="m-0 pt-1">{{ aadress }}</p>
                     </div>
-                    <p id="hotel-cost" class="m-0">Alates {{ hind }}€</p>
+                    <p id="hotel-cost" class="text-end m-0">Alates {{ hind }}€</p>
                 </div>
             </RouterLink>
         </div>

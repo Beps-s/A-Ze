@@ -55,7 +55,7 @@ export default {
                 <nav id="tabs" class="d-flex justify-content-center text-center">
                     <ul class="nav w-100">
                         <li class="nav-item col-4">
-                            <a href="#tab-info" class="nav-link tab" style="">Info</a>
+                            <a href="#tab-info" class="nav-link tab">Info</a>
                         </li>
                         <li class="nav-item col-4">
                             <a href="#tab-prices" class="nav-link tab">Hinnad</a>
@@ -65,7 +65,7 @@ export default {
                         </li>
                     </ul>
                 </nav>
-                <div class="hotel-card-bg" data-bs-spy="scroll" data-target="#tabs" data-bs-smooth-scroll="true"
+                <div class="hotel-card-bg" data-bs-spy="scroll" data-bs-target="#tabs" data-bs-smooth-scroll="true"
                     tabindex="0" style="padding: 0 20px 0 20px; overflow-y: scroll;">
                     <!-- Info -->
                     <div id="tab-info" class="py-4">

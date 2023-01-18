@@ -112,7 +112,7 @@ export default {
   <div id="wholepage">
     <div class="container-fluid text-center">
       <header class="row align-items-center mx-auto py-2">
-        <RouterLink to="/" class="col-3 align-self-start"><img style="height: 6em;" src="./assets/logo.PNG">
+        <RouterLink to="/" class="col-3 align-self-start"><img class="logo" src="./assets/logo.PNG">
         </RouterLink>
         <div class="col mx-auto px-4 input-group w-25">
           <span class="input-group-text"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></span>
@@ -123,16 +123,20 @@ export default {
                 icon="fa-solid fa-plus" /> Lisa majutus</a></RouterLink>
           <a v-else class="mx-4 header-link" data-bs-toggle="modal" data-bs-target="#registerModal"><font-awesome-icon
               icon="fa-solid fa-user-plus" /> Registreeri</a>
-          <a v-if="loggedIn || sessionID" class="mx-4 header-link dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-            aria-expanded="false"><font-awesome-icon icon="fa-solid fa-user" /> Minu konto</a>
+          <a v-if="loggedIn || sessionID" class="mx-4 header-link dropdown-toggle" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false"><font-awesome-icon icon="fa-solid fa-user" /> Minu konto</a>
           <a v-else class="mx-4 header-link" data-bs-toggle="modal" data-bs-target="#loginModal"><font-awesome-icon
               icon="fa-solid fa-right-to-bracket" /> Logi sisse</a>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li><a class="dropdown-item" href="#">Minu andmed</a></li>
-            <RouterLink to="/myBookings"><li><a class="dropdown-item" href="#">Minu broneeringud</a></li></RouterLink>
+            <RouterLink to="/myBookings">
+              <li><a class="dropdown-item" href="#">Minu broneeringud</a></li>
+            </RouterLink>
             <li>
-              <RouterLink to="/myhotels"><li><a class="dropdown-item" href="#">Minu hotellid</a></li></RouterLink>
-              <hr class="dropdown-divider">
+              <RouterLink to="/myhotels">
+            <li><a class="dropdown-item" href="#">Minu hotellid</a></li>
+            </RouterLink>
+            <hr class="dropdown-divider">
             </li>
             <li><a class="dropdown-item" @click="logout">Logi välja</a></li>
           </ul>

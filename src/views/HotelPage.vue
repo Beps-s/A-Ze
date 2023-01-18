@@ -15,7 +15,7 @@ export default {
         }
     },
     methods: {
-        insertReservation: async function(){
+        insertReservation: async function () {
             const insertReservationRequest = {
                 method: "POST",
                 headers: {
@@ -32,20 +32,20 @@ export default {
                     Toa_ID: this.selectedRoom.Toa_ID
                 })
             }
-            try{
+            try {
                 await fetch('http://192.168.16.94:5000/reservations', insertReservationRequest)
-                .then(response => response.json())
-                .then(data => { 
-                    if(data.error){
-                        this.message = "Midagi läks valesti"
-                    }else{
-                        this.message = "Edukalt broneeritud"
-                    }
-                })
-            }catch(error){
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            this.message = "Midagi läks valesti"
+                        } else {
+                            this.message = "Edukalt broneeritud"
+                        }
+                    })
+            } catch (error) {
                 this.message = "Midagi läks valesti"
             }
-            
+
         },
         async getHotelData() {
             const hotelRequest = {
@@ -65,7 +65,7 @@ export default {
             var elementPos = this.rooms.map(function (x) { return x.Toa_ID; }).indexOf(this.selectedRoomID);
             this.selectedRoom = this.rooms[elementPos]
         },
-        dateDiff(){
+        dateDiff() {
             this.diff = this.loppKuupaev - this.algusKuupaev
             console.log(this.diff)
         }
@@ -137,17 +137,20 @@ export default {
                                     <option v-for="room in rooms" :value="room.Toa_ID">{{ room.Liik }}</option>
                                 </select>
                                 <div class="d-flex align-items-center pt-2">
-                                    <input id="startDate" v-model="algusKuupaev" type="date" class="form-control px-2" />
+                                    <input id="startDate" v-model="algusKuupaev" type="date"
+                                        class="form-control px-2" />
                                     <p class="m-0 px-2" style="font-size: large;">kuni</p>
-                                    <input id="endDate" type="date" class="form-control px-2" v-model="loppKuupaev"/>
+                                    <input id="endDate" type="date" class="form-control px-2" v-model="loppKuupaev" />
                                 </div>
                                 <div class="pt-3" v-if="this.selectedRoom">
                                     <label for="peopleAmount" style="font-size: large;">Inimeste arv</label>
-                                    <input type="number" @change="dateDiff" id="peopleAmount" v-model="inimesteArv" class="form-control" min="1" pattern="[0-9]"
-                                        step="1" placeholder="&nbsp;" required />
+                                    <input type="number" @change="dateDiff" id="peopleAmount" v-model="inimesteArv"
+                                        class="form-control" min="1" pattern="[0-9]" step="1" placeholder="&nbsp;"
+                                        required />
                                     <label for="childrenAmount" class="pt-3" style="font-size: large;">Laste arv</label>
-                                    <input type="number" @change="dateDiff" id="childrenAmount" v-model="lasteArv" class="form-control" min="1"
-                                        pattern="[0-9]" step="1" placeholder="&nbsp;" required />
+                                    <input type="number" @change="dateDiff" id="childrenAmount" v-model="lasteArv"
+                                        class="form-control" min="1" pattern="[0-9]" step="1" placeholder="&nbsp;"
+                                        required />
                                 </div>
                             </div>
                             <div class="col-6" v-if="this.selectedRoom">
@@ -170,19 +173,55 @@ export default {
                         </div>
                         <div class="d-flex justify-content-end" v-if="this.selectedRoom">
                             <h2 class="m-0" style="font-weight: 600;">Hind:</h2>
-                            <h2 id="room-price" class="m-0" style="font-weight: 600;"> {{ this.selectedRoom.Hind }}€ / öö</h2>
-                            <h2 id="room-price" class="m-0" v-if="diff" style="font-weight: 600;"> {{ this.selectedRoom.Hind }}€ / öö</h2>
+                            <h2 id="room-price" class="m-0" style="font-weight: 600;"> {{ this.selectedRoom.Hind }}€ /
+                                öö</h2>
+                            <h2 id="room-price" class="m-0" v-if="diff" style="font-weight: 600;"> {{
+                                this.selectedRoom.Hind
+                            }}€ / öö</h2>
                         </div>
                         <div class="d-flex justify-content-end" v-if="this.diff">
                             <h2 class="m-0" style="font-weight: 600;">Hind kokku:</h2>
                             <h2 id="room-price" class="m-0" style="font-weight: 600;"> {{ this.diff }}€ / öö</h2>
                         </div>
-                        
+
                     </div>
                     <!-- Book button -->
                     <div id="book" class="d-flex justify-content-center py-5">
                         <h2 id="room-price" class="m-0" style="font-weight: 600;"> {{ this.message }}</h2>
-                        <button id="book-btn" data-bs-toggle="modal" data-bs-target="#confirmModal" type="button" class="btn-primary col-4 py-2 px-4">Broneeri</button>
+                        <button id="book-btn" data-bs-toggle="modal" data-bs-target="#confirmModal" type="button"
+                            class="btn-primary col-4 py-2 px-4">Broneeri</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Confirm modal -->
+    <div class="modal" data-bs-backdrop="static" id="confirmModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="wrapper">
+                    <div class="d-grid d-md-flex justify-content-md-end">
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="title-text">
+                        <div class="title">Kinnita makseviis</div>
+                    </div>
+                    <div class="form-container">
+                        <div class="form-inner">
+                            <form action="#" @submit="confirmPayment">
+                                <div class="field">
+                                    <select id="paymentChoice" class="form-select" style="height: 45px;">
+                                        <option hidden>Makseviis</option>
+                                        <option>Kaart</option>
+                                        <option>Sularaha</option>
+                                    </select>
+                                </div>
+                                <div class="field btn">
+                                    <div class="btn-layer"></div>
+                                    <input type="submit" value="Kinnita" data-bs-dismiss="modal">
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

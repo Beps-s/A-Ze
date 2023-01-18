@@ -4,7 +4,7 @@ export default {
         return {
             hotel: [],
             rooms: [],
-            selectedRoomID: null,
+            selectedRoomID: '',
             selectedRoom: null
         }
     },
@@ -84,7 +84,7 @@ export default {
                         <div class="d-flex align-items-center justify-content-between py-5">
                             <div class="col-6">
                                 <select @change="getSelectedRoomData" v-model="selectedRoomID" class="form-select">
-                                    <option hidden>Majutuse tüüp</option>
+                                    <option value="" disabled hidden>Majutuse tüüp</option>
                                     <option v-for="room in rooms" :value="room.Toa_ID">{{ room.Liik }}</option>
                                 </select>
                                 <div class="d-flex align-items-center pt-2">

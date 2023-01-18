@@ -27,9 +27,14 @@ export const loginUser = (req, res) => {
         }else{
             try{
                 if (data.parool == results[0].parool && data.Email == results[0].Email){
-                let sessionID = Math.round(Math.random() * 100000000)
-                sessions.push({user: data.Email, sessionID: sessionID, userID: results[0].Kasutaja_ID})
-                res.json({sessionID: sessionID});
+                    sessions.forEach((element, index) => {
+                        if (element.userID == results[0].Kasutaja_ID){
+                            sessions.splice(index, 1)
+                        }})
+                    let sessionID = Math.round(Math.random() * 100000000)
+                    sessions.push({user: data.Email, sessionID: sessionID, userID: results[0].Kasutaja_ID})
+                    console.log(sessions)
+                    res.json({sessionID: sessionID});
             } else {
                 res.json({ error: "Vale e-mail või parool"})
             }

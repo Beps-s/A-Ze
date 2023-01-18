@@ -62,7 +62,7 @@ export default {
 }
 </script>
 <template>
-    <div class="d-flex justify-content-center mt-3">
+    <div class="d-flex justify-content-center mt-3" v-if="sessionID">
         <div class="card addhotel-card border-2" style="">
             <div class="text-center pt-4">
                 <h1><strong>Lisa oma majutus siia, et see oleks kõigile kättesaadav</strong></h1>
@@ -144,8 +144,10 @@ export default {
                 <button @click="insertHotel" v-if="!hotelInserted" id="book-btn" type="submit" form="piltForm" class="btn btn-outline-primary"><strong>Lisa oma hotell</strong></button>
                 <RouterLink to="/addroom" v-if="hotelInserted"><h2 class="mx-4 header-link"> Lisa enda hotellile tube</h2></RouterLink>
             </div>
-            
         </div>
+    </div>
+    <div class="row row-cols-8 my-5" v-else="!loggedIn">
+        <h1>Te peate olema sisse logitud, et hotelle lisada</h1>
     </div>
 </template>
 

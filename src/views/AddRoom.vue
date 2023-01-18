@@ -54,11 +54,11 @@ export default {
 </script>
 
 <template>
-    <div v-if="!formVisible" class="card-footer text-center align-bottom">
+    <div v-if="!formVisible && sessionID" class="card-footer text-center align-bottom">
         <h1 class="text-center pt-4 pb-4"><strong>Edukalt lisatud</strong></h1>
         <button @click="showForm" id="room-btn" class="btn btn-outline-primary"><strong>Lisa veel tube</strong></button>
     </div>
-    <div v-if="formVisible" class="d-flex justify-content-center mt-3">
+    <div v-if="formVisible && sessionID" class="d-flex justify-content-center mt-3">
         <div class="card addroom-card">
             <h1 class="text-center pt-4"><strong>Lisa oma hotellile tube</strong></h1>
             <div class="card-body">
@@ -118,6 +118,9 @@ export default {
             </div>
             <h1 class="text-center pt-4 pb-4"><strong>{{ message }}</strong></h1>
         </div>
+    </div>
+    <div class="row row-cols-8 my-5" v-else="!loggedIn">
+        <h1>Te peate olema sisse logitud, et tube lisada</h1>
     </div>
 </template>
  

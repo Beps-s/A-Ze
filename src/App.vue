@@ -118,15 +118,20 @@ export default {
           <span class="input-group-text"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></span>
           <input class="form-control" placeholder="Otsi majutust">
         </div>
-        <div class="col-3 mx-auto">
-          <RouterLink to="/addHotel" v-if="loggedIn || sessionID"><a class="mx-4 header-link"><font-awesome-icon
-                icon="fa-solid fa-plus" /> Lisa majutus</a></RouterLink>
-          <a v-else class="mx-4 header-link" data-bs-toggle="modal" data-bs-target="#registerModal"><font-awesome-icon
-              icon="fa-solid fa-user-plus" /> Registreeri</a>
-          <a v-if="loggedIn || sessionID" class="mx-4 header-link dropdown-toggle" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false"><font-awesome-icon icon="fa-solid fa-user" /> Minu konto</a>
-          <a v-else class="mx-4 header-link" data-bs-toggle="modal" data-bs-target="#loginModal"><font-awesome-icon
-              icon="fa-solid fa-right-to-bracket" /> Logi sisse</a>
+        <div class="col-3 mx-auto d-flex justify-content-evenly">
+          <RouterLink to="/addHotel" v-if="loggedIn || sessionID">
+            <a class="header-link"><font-awesome-icon icon="fa-solid fa-plus" /> Lisa majutus</a>
+          </RouterLink>
+          <a v-else class="header-link" data-bs-toggle="modal" data-bs-target="#registerModal">
+            <font-awesome-icon icon="fa-solid fa-user-plus" /> Registreeri
+          </a>
+          <a v-if="loggedIn || sessionID" class="header-link dropdown-toggle" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <font-awesome-icon icon="fa-solid fa-user" /> Minu konto
+          </a>
+          <a v-else class="header-link" data-bs-toggle="modal" data-bs-target="#loginModal">
+            <font-awesome-icon icon="fa-solid fa-right-to-bracket" /> Logi sisse
+          </a>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li><a class="dropdown-item" href="#">Minu andmed</a></li>
             <RouterLink to="/myBookings">
@@ -171,7 +176,7 @@ export default {
                 <h3>{{ message }}</h3>
                 <div class="field btn">
                   <div class="btn-layer"></div>
-                  <input type="submit" value="Logi sisse">
+                  <input type="submit" value="Logi sisse" data-bs-dismiss="modal">
                 </div>
                 <div class="signup-link">
                   Pole kasutajat? <a data-bs-toggle="modal" data-bs-target="#registerModal">Registreeri siin</a>
@@ -220,7 +225,7 @@ export default {
                 <h3>{{ message }}</h3>
                 <div class="field btn">
                   <div class="btn-layer"></div>
-                  <input type="submit" value="Loo konto">
+                  <input type="submit" value="Loo konto" data-bs-dismiss="modal">
                 </div>
                 <div class="signup-link">
                   Kasutaja juba olemas? <a data-bs-toggle="modal" data-bs-target="#loginModal">Logi sisse</a>

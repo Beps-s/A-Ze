@@ -14,7 +14,7 @@ export default {
 </script>
 
 <template>
-    <div class="col">
+    <div class="col" style="padding-top: 12px; padding-bottom: 12px;">
         <div class="card book-card">
             <RouterLink v-bind:to="'/hotel/' + hotel_id" class="card-link">
                 <img v-bind:src="'http://192.168.16.94:5000/' + pilt" class="card-img-top">

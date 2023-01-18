@@ -5,10 +5,48 @@ export default {
             hotel: [],
             rooms: [],
             selectedRoomID: '',
-            selectedRoom: null
+            selectedRoom: null,
+            algusKuupaev: '',
+            loppKuupaev: '',
+            inimesteArv: '',
+            lasteArv: '',
+            diff: null,
+            message: ''
         }
     },
     methods: {
+        insertReservation: async function(){
+            const insertReservationRequest = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    Algus_kuupaev: this.algusKuupaev,
+                    Lopp_kuupaev: this.loppKuupaev,
+                    Inimeste_arv: this.inimesteArv,
+                    Laste_arv: this.lasteArv,
+                    SessionID: localStorage.getItem('SessionID'),
+                    Makse_Liik: 'Kaardimakse',
+                    Summa: this.selectedRoom.Hind,
+                    Toa_ID: this.selectedRoom.Toa_ID
+                })
+            }
+            try{
+                await fetch('http://192.168.16.94:5000/reservations', insertReservationRequest)
+                .then(response => response.json())
+                .then(data => { 
+                    if(data.error){
+                        this.message = "Midagi läks valesti"
+                    }else{
+                        this.message = "Edukalt broneeritud"
+                    }
+                })
+            }catch(error){
+                this.message = "Midagi läks valesti"
+            }
+            
+        },
         async getHotelData() {
             const hotelRequest = {
                 method: "GET"
@@ -22,14 +60,15 @@ export default {
                 .then(data => data.forEach(element => {
                     this.rooms.push(element)
                 }))
-            console.log(this.hotel)
-            console.log(this.rooms)
         },
         getSelectedRoomData() {
             var elementPos = this.rooms.map(function (x) { return x.Toa_ID; }).indexOf(this.selectedRoomID);
-            //console.log(this.rooms[elementPos].Hind)
             this.selectedRoom = this.rooms[elementPos]
         },
+        dateDiff(){
+            this.diff = this.loppKuupaev - this.algusKuupaev
+            console.log(this.diff)
+        }
     },
     created() {
         setTimeout(() => this.getHotelData(), 700)
@@ -98,16 +137,16 @@ export default {
                                     <option v-for="room in rooms" :value="room.Toa_ID">{{ room.Liik }}</option>
                                 </select>
                                 <div class="d-flex align-items-center pt-2">
-                                    <input id="startDate" type="date" class="form-control px-2" />
+                                    <input id="startDate" v-model="algusKuupaev" type="date" class="form-control px-2" />
                                     <p class="m-0 px-2" style="font-size: large;">kuni</p>
-                                    <input id="endDate" type="date" class="form-control px-2" />
+                                    <input id="endDate" type="date" class="form-control px-2" v-model="loppKuupaev"/>
                                 </div>
                                 <div class="pt-3" v-if="this.selectedRoom">
                                     <label for="peopleAmount" style="font-size: large;">Inimeste arv</label>
-                                    <input type="number" id="peopleAmount" class="form-control" min="1" pattern="[0-9]"
+                                    <input type="number" @change="dateDiff" id="peopleAmount" v-model="inimesteArv" class="form-control" min="1" pattern="[0-9]"
                                         step="1" placeholder="&nbsp;" required />
                                     <label for="childrenAmount" class="pt-3" style="font-size: large;">Laste arv</label>
-                                    <input type="number" id="childrenAmount" class="form-control" min="1"
+                                    <input type="number" @change="dateDiff" id="childrenAmount" v-model="lasteArv" class="form-control" min="1"
                                         pattern="[0-9]" step="1" placeholder="&nbsp;" required />
                                 </div>
                             </div>
@@ -131,18 +170,26 @@ export default {
                         </div>
                         <div class="d-flex justify-content-end" v-if="this.selectedRoom">
                             <h2 class="m-0" style="font-weight: 600;">Hind:</h2>
-                            <h2 id="room-price" class="m-0" style="font-weight: 600;">{{ this.selectedRoom.Hind }}€</h2>
+                            <h2 id="room-price" class="m-0" style="font-weight: 600;"> {{ this.selectedRoom.Hind }}€ / öö</h2>
+                            <h2 id="room-price" class="m-0" v-if="diff" style="font-weight: 600;"> {{ this.selectedRoom.Hind }}€ / öö</h2>
                         </div>
+                        <div class="d-flex justify-content-end" v-if="this.diff">
+                            <h2 class="m-0" style="font-weight: 600;">Hind kokku:</h2>
+                            <h2 id="room-price" class="m-0" style="font-weight: 600;"> {{ this.diff }}€ / öö</h2>
+                        </div>
+                        
                     </div>
                     <!-- Book button -->
                     <div id="book" class="d-flex justify-content-center py-5">
-                        <button id="book-btn" type="button" class="btn-primary col-4 py-2 px-4">Broneeri</button>
+                        <h2 id="room-price" class="m-0" style="font-weight: 600;"> {{ this.message }}</h2>
+                        <button id="book-btn" data-bs-toggle="modal" data-bs-target="#confirmModal" type="button" class="btn-primary col-4 py-2 px-4">Broneeri</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
 
 <style src="../css/hotelPage.css">
 

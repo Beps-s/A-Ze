@@ -28,7 +28,6 @@ export const showHotelsByOwnerId = (req, res) => {
     sessions.forEach((element) => {
         if (element.sessionID == req.headers.authorization){
             id = element.userID
-            console.log(true)
         }  
     })
     if(!id){

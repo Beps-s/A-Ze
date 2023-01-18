@@ -4,7 +4,8 @@ export default {
         return {
             hotel: [],
             rooms: [],
-            selectedRoom: ""
+            selectedRoomID: null,
+            selectedRoom: null
         }
     },
     methods: {
@@ -23,20 +24,12 @@ export default {
                 }))
             console.log(this.hotel)
             console.log(this.rooms)
-        }
-
-    },
-    computed: {
-        selectedRoom: {
-            get() {
-                console.log(this.selectedRoom)
-                return this.selectedRoom
-            },
-            set(newRoom) {
-                this.selectedRoom = newRoom
-                console.log(this.selectedRoom)
-            }
-        }
+        },
+        getSelectedRoomData() {
+            var elementPos = this.rooms.map(function(x) {return x.Toa_ID; }).indexOf(this.selectedRoomID);
+            //console.log(this.rooms[elementPos].Hind)
+            this.selectedRoom = this.rooms[elementPos]
+        },
     },
     created() {
         setTimeout(() => this.getHotelData(), 700)
@@ -63,7 +56,7 @@ export default {
                             <a href="#tab-prices" class="nav-link tab">Hinnad</a>
                         </li>
                         <li class="nav-item col-4">
-                            <a href="#tab-facilities" class="nav-link tab">Mugavused</a>
+                            <a href="#tab-facilities" class="nav-link tab">Teenused</a>
                         </li>
                     </ul>
                 </nav>
@@ -74,14 +67,12 @@ export default {
                         <div class="d-flex align-items-center justify-content-between py-5">
                             <div class="">
                                 <h1 id="hotel-name" class="text-start" style="font-weight: 600; margin-bottom: 0;">
-                                    {{ hotel.Nimi }}
-                                </h1>
+                                    {{ hotel.Nimi }}</h1>
                                 <h3 id="hotel-location" style="margin-bottom: 0;">{{ hotel.Aadress }}</h3>
                             </div>
                             <div class="d-flex align-items-center">
                                 <font-awesome-icon icon="fa-solid fa-star" style="font-size: 30px;" />
-                                <h1 id="hotel-rating" class="text-start" style="margin: 0 0 0 5px;">{{ hotel.Tarnid }}
-                                </h1>
+                                <h1 id="hotel-rating" class="text-start" style="margin: 0 0 0 5px;">{{ hotel.Tarnid }}</h1>
                             </div>
                         </div>
                         <div class="py-5">
@@ -92,9 +83,9 @@ export default {
                     <div id="tab-prices" class="py-4">
                         <div class="d-flex align-items-center justify-content-between py-5">
                             <div class="col-6">
-                                <select class="form-select">
+                                <select @change="getSelectedRoomData" v-model="selectedRoomID" class="form-select">
                                     <option hidden>Majutuse tüüp</option>
-                                    <option v-for="room in rooms" :value="room.Toa_ID" @change="selectedRoom.get()">{{ room.Liik }}</option>
+                                    <option v-for="room in rooms" :value="room.Toa_ID">{{ room.Liik }}</option>
                                 </select>
                                 <div class="d-flex align-items-center pt-2">
                                     <input id="startDate" type="date" class="form-control" />
@@ -102,22 +93,22 @@ export default {
                                     <input id="endDate" type="date" class="form-control" />
                                 </div>
                             </div>
-                            <div class="col-4 py-2">
+                            <div class="col-4 py-2" v-if="this.selectedRoom">
                                 <div class="row">
                                     <h5 class="col text-end my-1">Voodikohad: </h5>
-                                    <h5 id="room-beds" class="col-2 p-0 my-1">2</h5>
+                                    <h5 id="room-beds" class="col-2 p-0 my-1">{{ this.selectedRoom.Voodikohad }}</h5>
                                 </div>
                                 <div class="row">
                                     <h5 class="col text-end my-1">Lisa voodikohad:</h5>
-                                    <h5 id="room-extrabeds" class="col-2 p-0 my-1">0</h5>
+                                    <h5 id="room-extrabeds" class="col-2 p-0 my-1">{{ this.selectedRoom.Lisa_voodikohad }} </h5>
                                 </div>
                             </div>
                         </div>
-                        <div class="py-4" v-if="this.seletcedRoom">
+                        <div class="py-4" v-if="this.selectedRoom">
                             <h3>Toa mugavused:</h3>
-                            <p id="room-facilities" style="font-size: large;">WC, Vann, Dušš, TV, Konditsioneer</p>
+                            <p id="room-facilities" style="font-size: large;">{{ this.selectedRoom.Mugavused }}</p>
                         </div>
-                        <div class="d-flex justify-content-end pb-4">
+                        <div class="d-flex justify-content-end pb-4" v-if="this.selectedRoom">
                             <h2 style="font-weight: 600;">Hind:</h2>
                             <h2 id="room-price" style="font-weight: 600;">{{ this.selectedRoom.Hind }}€</h2>
                         </div>

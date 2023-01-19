@@ -147,7 +147,7 @@ export default {
                                         min="1" pattern="[0-9]" step="1" placeholder="&nbsp;" required />
                                     <label for="childrenAmount" class="pt-3" style="font-size: large;">Laste arv</label>
                                     <input type="number" id="childrenAmount" v-model="lasteArv" class="form-control"
-                                        min="1" pattern="[0-9]" step="1" placeholder="&nbsp;" required />
+                                        min="0" pattern="[0-9]" step="1" placeholder="&nbsp;" required />
                                 </div>
                             </div>
                             <div class="col-6" v-if="this.selectedRoom">

@@ -47,7 +47,7 @@ export default {
                     }
                 })
         },
-        async cancelReservation(index){
+        async cancelReservation(index) {
             let id = this.reservations[index].Broneeringu_ID
             const cancelReservationRequest = {
                 method: "Delete",
@@ -56,11 +56,11 @@ export default {
                 }
             }
             await fetch(`http://192.168.16.94:5000/reservations/${id}`, cancelReservationRequest)
-            .then(response => response.json())
-                .then(data => { 
-                    if(data.error){
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
                         console.log(data.error)
-                    }else{
+                    } else {
                         this.reservations.splice(index, 1)
                     }
                 })
@@ -92,16 +92,31 @@ export default {
                 }}</p>
                 <div v-if="reservation.Sooritatud == 0 && !this.reservationPaid" class="d-flex flex-column">
                     <p class="w-100">Makse broneeringu eest on sooritamata</p>
-                    <button type="button" @click="payReservation(index)" class="btn-primary col-6 py-2 px-4 m-auto"
+                    <button type="button" @click="payReservation(index)" class="btn-primary col-6 py-2 px-4 m-auto mb-2"
                         style="font-size: large; border-radius: 10px;">Maksa</button>
                 </div>
                 <div v-if="reservation.Sooritatud == 1 || this.reservationPaid">
                     <p>Broneeringu eest makstud</p>
                 </div>
-            </div>
-            <div>
-                <button type="button" @click="cancelReservation(index)" class="btn-warning">Tühista broneering</button>
+                <div class="d-flex justify-content-center">
+                    <button type="button" @click="cancelReservation(index)" class="btn-cancel p-2 m-auto">Tühista
+                        broneering</button>
+                </div>
             </div>
         </div>
     </div>
 </template>
+
+<style>
+.btn-cancel {
+    font-size: large;
+    color: #fff;
+    background-color: #e34949;
+    border: none;
+    border-radius: 10px;
+}
+
+.btn-cancel:hover {
+    background-color: #f76d6d;
+}
+</style>

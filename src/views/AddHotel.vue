@@ -26,7 +26,7 @@ export default {
             tarnidHotell: '',
             sessionID: localStorage.getItem('SessionID'),
             selected: [],
-            options: ['Wi-Fi', 'Bassein', 'Hommikusook', 'Riiete pesu', 'Saun']
+            options: ['Wi-Fi', 'Bassein', 'Hommikusook', 'Riiete pesu', 'Saun', 'Spordisaal']
         }
     },
     methods: {
@@ -49,10 +49,10 @@ export default {
             }
             await fetch('http://192.168.16.94:5000/hotels', insertHotelRequest)
                 .then(response => response.json())
-                .then(data => { 
-                    if(data.error){
+                .then(data => {
+                    if (data.error) {
                         this.message = "Midagi läks valesti"
-                    }else{
+                    } else {
                         this.message = "Hotell edukalt lisatud"
                         this.hotelInserted = true
                     }
@@ -141,8 +141,11 @@ export default {
             </div>
             <div class="card-footer text-center align-bottom">
                 <h3>{{ this.message }}</h3>
-                <button @click="insertHotel" v-if="!hotelInserted" id="book-btn" type="submit" form="piltForm" class="btn btn-outline-primary"><strong>Lisa oma hotell</strong></button>
-                <RouterLink to="/addroom" v-if="hotelInserted"><h2 class="mx-4 header-link"> Lisa enda hotellile tube</h2></RouterLink>
+                <button @click="insertHotel" v-if="!hotelInserted" id="book-btn" type="submit" form="piltForm"
+                    class="btn btn-primary"><strong>Lisa oma hotell</strong></button>
+                <RouterLink to="/addroom" v-if="hotelInserted">
+                    <h2 class="mx-4 header-link"> Lisa enda hotellile tube</h2>
+                </RouterLink>
             </div>
         </div>
     </div>

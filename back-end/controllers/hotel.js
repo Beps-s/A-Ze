@@ -105,6 +105,3 @@ export const deleteHotel = (req, res) => {
         }
     });
 }
-
-
-

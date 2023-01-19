@@ -1,4 +1,4 @@
-import { getReservationsByUserId, insertReservation, insertReservationRoom } from "../models/reservationModel.js";
+import { deleteReservationById, getReservationsByUserId, insertReservation, insertReservationRoom } from "../models/reservationModel.js";
 import { insertInvoice, getLatestInvoiceId } from "../models/invoiceModel.js";
 import { sessions } from "./user.js"
 
@@ -93,4 +93,14 @@ export const createReservation = async (req, res) => {
     })
 
 }
-    
+
+export const deleteReservation = (req, res) => {
+    const id = req.params.id;
+    deleteReservationById(id, (err, results) => {
+        if (err){
+            res.send(err);
+        }else{
+            res.json(results);
+        }
+    });
+}

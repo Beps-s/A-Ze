@@ -13,7 +13,7 @@ export default {
             makseLiik: '',
             diff: null,
             message: '',
-            
+
         }
     },
     methods: {
@@ -143,13 +143,11 @@ export default {
                                 </div>
                                 <div class="pt-3" v-if="this.selectedRoom">
                                     <label for="peopleAmount" style="font-size: large;">Inimeste arv</label>
-                                    <input type="number" id="peopleAmount" v-model="inimesteArv"
-                                        class="form-control" min="1" pattern="[0-9]" step="1" placeholder="&nbsp;"
-                                        required />
+                                    <input type="number" id="peopleAmount" v-model="inimesteArv" class="form-control"
+                                        min="1" pattern="[0-9]" step="1" placeholder="&nbsp;" required />
                                     <label for="childrenAmount" class="pt-3" style="font-size: large;">Laste arv</label>
-                                    <input type="number" id="childrenAmount" v-model="lasteArv"
-                                        class="form-control" min="1" pattern="[0-9]" step="1" placeholder="&nbsp;"
-                                        required />
+                                    <input type="number" id="childrenAmount" v-model="lasteArv" class="form-control"
+                                        min="1" pattern="[0-9]" step="1" placeholder="&nbsp;" required />
                                 </div>
                             </div>
                             <div class="col-6" v-if="this.selectedRoom">
@@ -185,10 +183,10 @@ export default {
 
                     </div>
                     <!-- Book button -->
-                    <div id="book" class="d-flex justify-content-center py-5">
-                        <h2 id="room-price" class="m-0" style="font-weight: 600;"> {{ this.message }}</h2>
+                    <div id="book" class="d-flex flex-column justify-content-center py-5">
+                        <h3 id="room-price" class="text-center" style="font-weight: 600;"> {{ this.message }}</h3>
                         <button id="book-btn" data-bs-toggle="modal" data-bs-target="#confirmModal" type="button"
-                            class="btn-primary col-4 py-2 px-4">Broneeri</button>
+                            class="btn-primary col-4 py-2 px-4 m-auto">Broneeri</button>
                     </div>
                 </div>
             </div>
@@ -209,7 +207,8 @@ export default {
                         <div class="form-inner">
                             <form action="#" @submit.prevent @submit="insertReservation">
                                 <div class="field">
-                                    <select id="paymentChoice" v-model="makseLiik" class="form-select" style="height: 45px;">
+                                    <select id="paymentChoice" v-model="makseLiik" class="form-select"
+                                        style="height: 45px;">
                                         <option value="" disabled hidden>Makseviis</option>
                                         <option>Kaardimakse</option>
                                         <option>Sularahamakse</option>

@@ -24,7 +24,7 @@ export default {
                         <h5 id="hotel-name" class="card-title m-0">{{ nimi }}</h5>
                         <p class="m-0 pt-1">{{ aadress }}</p>
                     </div>
-                    <p id="hotel-cost" class="text-end m-0">Alates {{ hind }}€</p>
+                    <p id="hotel-cost" class="text-end col-4 m-0">Alates {{ hind }}€</p>
                 </div>
             </RouterLink>
         </div>

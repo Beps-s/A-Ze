@@ -14,6 +14,7 @@ const router = createRouter({
       path: "/",
       name: "Home Page",
       component: Home,
+      props: true
     },
     {
       path: "/addhotel",

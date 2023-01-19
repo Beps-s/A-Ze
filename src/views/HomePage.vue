@@ -7,6 +7,16 @@ export default {
             hotels: []
         }
     },
+    props: {
+        search: ''
+    },
+    computed: {
+        filteredHotels() {
+            return this.hotels.filter(hotel => {
+                return hotel.Nimi.toLowerCase().includes(this.search.toLowerCase())
+            })
+        }
+    },
     components: {
         Hotel
     },
@@ -27,14 +37,20 @@ export default {
 
 
 <template>
-    <div class="row row-cols-4 my-5">
-        <svg v-if="!hotels.length" class="spinner col-2 mx-auto" viewBox="0 0 50 50" style="margin-top: 33vh;">
+    <div class="my-5">
+        <svg v-if="!hotels.length" class="spinner col-12 mx-auto" viewBox="0 0 50 50" style="margin-top: 33vh;">
             <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
         </svg>
-        <div v-else v-for="hotel in hotels">
-            <Hotel :hotel_id="hotel.Hotelli_ID" :nimi="hotel.Nimi" :aadress="hotel.Aadress" :hind="hotel.Hind"
-                :pilt="hotel.pilt" />
-        </div>
+        <div class="row row-cols-4" v-else>
+            <div v-if="!search" v-for="hotel in hotels">
+                <Hotel :hotel_id="hotel.Hotelli_ID" :nimi="hotel.Nimi" :aadress="hotel.Aadress" :hind="hotel.Hind"
+                    :pilt="hotel.pilt" />
+            </div>
+            <div v-else v-for="hotel in filteredHotels">
+                <Hotel :hotel_id="hotel.Hotelli_ID" :nimi="hotel.Nimi" :aadress="hotel.Aadress" :hind="hotel.Hind"
+                    :pilt="hotel.pilt" />
+            </div>
+        </div>    
     </div>
 </template>
 

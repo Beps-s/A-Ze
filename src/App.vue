@@ -6,6 +6,7 @@ import { mapState } from 'vuex'
 export default {
   data() {
     return {
+      search: '',
       emailLogin: '',
       paroolLogin: '',
       eesnimiReg: '',
@@ -21,7 +22,7 @@ export default {
   computed: {
     ...mapState({
       loggedIn: state => state.loggedIn
-    }),
+    })
   },
   methods: {
     register: async function (e) {
@@ -104,6 +105,9 @@ export default {
           }
         })
     }
+  },
+  mounted() {
+    setTimeout(() => this.$router.currentRoute.value, 2000)
   }
 }
 </script>
@@ -116,7 +120,7 @@ export default {
         </RouterLink>
         <div class="col mx-auto px-4 input-group w-25">
           <span class="input-group-text"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></span>
-          <input class="form-control" placeholder="Otsi majutust">
+          <input class="form-control" placeholder="Otsi majutust" v-model="search">
         </div>
         <div class="col-3 mx-auto d-flex justify-content-evenly">
           <RouterLink to="/addHotel" v-if="loggedIn || sessionID">
@@ -149,7 +153,7 @@ export default {
       </header>
     </div>
     <div class="container">
-      <RouterView />
+      <RouterView :search="search"/>
     </div>
   </div>
 

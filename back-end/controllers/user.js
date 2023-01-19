@@ -33,7 +33,6 @@ export const loginUser = (req, res) => {
                         }})
                     let sessionID = Math.round(Math.random() * 100000000)
                     sessions.push({user: data.Email, sessionID: sessionID, userID: results[0].Kasutaja_ID})
-                    console.log(sessions)
                     res.json({sessionID: sessionID});
             } else {
                 res.json({ error: "Vale e-mail või parool"})
@@ -47,16 +46,13 @@ export const loginUser = (req, res) => {
 
 export const logoutUser = (req, res) => {
     const data = req.body
-    sessions.forEach((element) => {
-        if (
-          element.id == data.sessionId
-        ) {
-            sessions.splice(element);
+    sessions.forEach((element, index) => {
+        if (element.sessionID == data.sessionID) {
+            sessions.splice(index, 1);
+            console.log(sessions)
             return res.status(201).send({ success: true });
-        } else {
-          return res.status(401).send({ error: "Invalid sessionId or username" });
         }
-      });
+    });
 }
 
 

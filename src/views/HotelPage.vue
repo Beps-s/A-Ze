@@ -10,12 +10,15 @@ export default {
             loppKuupaev: '',
             inimesteArv: '',
             lasteArv: '',
+            makseLiik: '',
             diff: null,
-            message: ''
+            message: '',
+            
         }
     },
     methods: {
         insertReservation: async function () {
+            let dateDiff = ((new Date(this.loppKuupaev) - new Date(this.algusKuupaev)) / (1000 * 3600 * 24))
             const insertReservationRequest = {
                 method: "POST",
                 headers: {
@@ -27,8 +30,8 @@ export default {
                     Inimeste_arv: this.inimesteArv,
                     Laste_arv: this.lasteArv,
                     SessionID: localStorage.getItem('SessionID'),
-                    Makse_Liik: 'Kaardimakse',
-                    Summa: this.selectedRoom.Hind,
+                    Makse_Liik: this.makseLiik,
+                    Summa: this.selectedRoom.Hind * 2,
                     Toa_ID: this.selectedRoom.Toa_ID
                 })
             }
@@ -65,10 +68,6 @@ export default {
             var elementPos = this.rooms.map(function (x) { return x.Toa_ID; }).indexOf(this.selectedRoomID);
             this.selectedRoom = this.rooms[elementPos]
         },
-        dateDiff() {
-            this.diff = this.loppKuupaev - this.algusKuupaev
-            console.log(this.diff)
-        }
     },
     created() {
         setTimeout(() => this.getHotelData(), 700)
@@ -144,11 +143,11 @@ export default {
                                 </div>
                                 <div class="pt-3" v-if="this.selectedRoom">
                                     <label for="peopleAmount" style="font-size: large;">Inimeste arv</label>
-                                    <input type="number" @change="dateDiff" id="peopleAmount" v-model="inimesteArv"
+                                    <input type="number" id="peopleAmount" v-model="inimesteArv"
                                         class="form-control" min="1" pattern="[0-9]" step="1" placeholder="&nbsp;"
                                         required />
                                     <label for="childrenAmount" class="pt-3" style="font-size: large;">Laste arv</label>
-                                    <input type="number" @change="dateDiff" id="childrenAmount" v-model="lasteArv"
+                                    <input type="number" id="childrenAmount" v-model="lasteArv"
                                         class="form-control" min="1" pattern="[0-9]" step="1" placeholder="&nbsp;"
                                         required />
                                 </div>
@@ -208,12 +207,13 @@ export default {
                     </div>
                     <div class="form-container">
                         <div class="form-inner">
-                            <form action="#" @submit="confirmPayment">
+                            <form action="#" @submit.prevent @submit="insertReservation">
                                 <div class="field">
-                                    <select id="paymentChoice" class="form-select" style="height: 45px;">
-                                        <option hidden>Makseviis</option>
-                                        <option>Kaart</option>
-                                        <option>Sularaha</option>
+                                    <select id="paymentChoice" v-model="makseLiik" class="form-select" style="height: 45px;">
+                                        <option value="" disabled hidden>Makseviis</option>
+                                        <option>Kaardimakse</option>
+                                        <option>Sularahamakse</option>
+                                        <option>Arve</option>
                                     </select>
                                 </div>
                                 <div class="field btn">

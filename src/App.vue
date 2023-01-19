@@ -89,7 +89,7 @@ export default {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          sessionID: this.sessionID
+          sessionID: localStorage.getItem('SessionID')
         })
       }
       await fetch('http://192.168.16.94:5000/sessions', logoutRequest)

@@ -5,8 +5,9 @@ import express from "express";
 import { showHotels, showHotelByName, createHotel, deleteHotel, showHotelById, showHotelsByOwnerId } from "../controllers/hotel.js";
 import { createRoom, showRoomsByHotelId } from "../controllers/room.js";
 import { createUser, loginUser, logoutUser } from "../controllers/user.js";
-import { createReservation } from "../controllers/reservation.js";
+import { createReservation, showUserReservations } from "../controllers/reservation.js";
 import { uploadImage } from '../controllers/images.js'
+import { payInvoice } from "../controllers/invoice.js";
  
 // init express router
 const router = express.Router();
@@ -51,8 +52,14 @@ router.delete('/sessions', logoutUser)
 // Add reservation
 router.post('/reservations', createReservation)
 
+// Get user reservations
+router.get('/reservations', showUserReservations)
+
 // upload images
 router.post('/upload', uploadImage)
+
+// pay invoice
+router.post('/invoice', payInvoice)
  
 // export default router
 export default router;

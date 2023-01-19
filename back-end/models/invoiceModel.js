@@ -21,3 +21,14 @@ export const getLatestInvoiceId = (result) => {
         }
     })
 }
+
+export const setInvoicePayed = (id, result) => {
+    db.query(`update arve set sooritatud = 1 where Arve_ID = ?`, [id], (err, results) => {
+        if(err) {
+            console.log(err);
+            result(err, null);
+        } else {
+            result(null, results);
+        }
+    })
+}

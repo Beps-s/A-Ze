@@ -5,7 +5,7 @@ import express from "express";
 import { showHotels, showHotelByName, createHotel, deleteHotel, showHotelById, showHotelsByOwnerId } from "../controllers/hotel.js";
 import { createRoom, showRoomsByHotelId } from "../controllers/room.js";
 import { createUser, loginUser, logoutUser } from "../controllers/user.js";
-import { createReservation, showUserReservations } from "../controllers/reservation.js";
+import { createReservation, deleteReservation, showUserReservations } from "../controllers/reservation.js";
 import { uploadImage } from '../controllers/images.js'
 import { payInvoice } from "../controllers/invoice.js";
  
@@ -54,6 +54,9 @@ router.post('/reservations', createReservation)
 
 // Get user reservations
 router.get('/reservations', showUserReservations)
+
+// cancel reservation
+router.delete('/reservations/:id', deleteReservation)
 
 // upload images
 router.post('/upload', uploadImage)

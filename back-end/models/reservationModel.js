@@ -33,3 +33,14 @@ export const insertReservationRoom = (data, result) => {
         }
     });   
 }
+
+export const deleteReservationById = (id, result) => {
+    db.query(`DELETE FROM broneering WHERE Broneeringu_ID = ?`, [id], (err, results) => {
+        if(err) {
+            console.log(err);
+            result(err, null);
+        } else {
+            result(null, results);
+        }
+    })
+}

@@ -6,7 +6,7 @@ export default {
         return{
             loggedIn: localStorage.getItem('SessionID'),
             reservations: [],
-            reservationPaid: false,
+            reservationPaid: false
         }
     },
     components: {
@@ -46,7 +46,25 @@ export default {
                         this.reservationPaid = true
                     }
                 })
-        }
+        },
+        async cancelReservation(index){
+            let id = this.reservations[index].Broneeringu_ID
+            const cancelReservationRequest = {
+                method: "Delete",
+                headers: {
+                    "Authorization": localStorage.getItem('SessionID')
+                }
+            }
+            await fetch(`http://192.168.16.94:5000/reservations/${id}`, cancelReservationRequest)
+            .then(response => response.json())
+                .then(data => { 
+                    if(data.error){
+                        console.log(data.error)
+                    }else{
+                        this.reservations.splice(index, 1)
+                    }
+                })
+        },
     },
     mounted(){
         if(this.loggedIn.length < 1){
@@ -74,6 +92,9 @@ export default {
             </div>
             <div v-if="reservation.Sooritatud == 1 || this.reservationPaid">
                 <p>Broneeringu eest makstud</p>
+            </div>
+            <div>
+                <button type="button" @click="cancelReservation(index)" class="btn-warning">Tühista broneering</button>
             </div>
         </div>
     </div>

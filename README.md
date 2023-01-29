@@ -2,7 +2,7 @@
 
 ## 📜 | About
 
-This project is made as the final assignment in data science. The task for the assignment was to build a website for hotel lookups and booking. The project is made using Vue.js and Mysql.
+This project is made as the final assignment in database management. The task for the assignment was to build a website for hotel lookups and booking. The front-end framework used is Vue.js and database is Mysql.
 
 ## 🚧 Prerequisites:
 
@@ -10,7 +10,7 @@ This project is made as the final assignment in data science. The task for the a
 
 ### Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
 ## 📝 Project Setup
 

@@ -32,7 +32,7 @@ npm run build
 
 ## ✨ | Authors
 
-* **Chris Erman** - [UwUBeebi](https://github.com/UwUBeebi)
+* **Chris Erman** - [Beps-s](https://github.com/Beps-s)
 
 * **Gardo Kirsipuu** - [GardoKirsipuu](https://github.com/GardoKirsipuu)
 
